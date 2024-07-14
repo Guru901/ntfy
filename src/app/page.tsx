@@ -220,7 +220,15 @@ export default function Home() {
 
   useEffect(() => {
     getAllTasks();
+    setUser();
   }, []);
+
+  async function setUser() {
+    setLoading(true);
+    const user = await getLoggedInUser();
+    setLoggedInUser(user);
+    setLoading(false);
+  }
 
   function handleTaskAddChange(e: any) {
     setAddTaskForm({
@@ -244,12 +252,14 @@ export default function Home() {
   }
 
   async function getAllTasks() {
+    setLoading(true);
     const user = await getLoggedInUser();
     setLoggedInUser(user);
     const { data } = await axios.post("/api/getAllTasks", {
       id: user._id,
     });
     setTasks(data.reverse());
+    setLoading(false);
   }
 
   async function handleTaskAddSubmit() {
