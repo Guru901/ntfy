@@ -39,14 +39,22 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import Link from "next/link";
 
 export default function Home() {
-  const [addTaskForm, setAddTaskForm] = useState({});
+  const [addTaskForm, setAddTaskForm] = useState<TaskForm>({} as TaskForm);
   const [tasks, setTasks] = useState([]);
   const [taskToEdit, setTaskToEdit] = useState({});
   const [editForm, setEditForm] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState<User>({ _id: "" });
 
   interface User {
     _id: string;
   }
+
+  type TaskForm = {
+    title: string;
+    priority: string;
+    subject: string;
+  };
   type Task = {
     _id: any;
     id: string;
@@ -210,18 +218,7 @@ export default function Home() {
     },
   ];
 
-  const [loading, setLoading] = useState(true);
-  const [loggedInUser, setLoggedInUser] = useState<User>({ _id: "" });
-
-  async function setUser() {
-    setLoading(true);
-    const user = await getLoggedInUser();
-    setLoggedInUser(user);
-    setLoading(false);
-  }
-
   useEffect(() => {
-    setUser();
     getAllTasks();
   }, []);
 
@@ -234,7 +231,11 @@ export default function Home() {
 
   async function deleteTask(row: any) {
     const { data } = await axios.post("/api/deleteTask", JSON.stringify(row));
-    setTasks(data.reverse());
+    if (data.success) {
+      setLoading(true);
+      getAllTasks();
+      setLoading(false);
+    }
   }
 
   async function editTask(row: any) {
@@ -243,12 +244,21 @@ export default function Home() {
   }
 
   async function getAllTasks() {
-    const { data } = await axios.post("/api/getAllTasks");
+    const user = await getLoggedInUser();
+    setLoggedInUser(user);
+    const { data } = await axios.post("/api/getAllTasks", {
+      id: user._id,
+    });
     setTasks(data.reverse());
   }
 
   async function handleTaskAddSubmit() {
-    const { data } = await axios.post("/api/addTask", addTaskForm);
+    const { data } = await axios.post("/api/addTask", {
+      title: addTaskForm.title,
+      subject: addTaskForm.subject,
+      priority: addTaskForm.priority,
+      id: loggedInUser._id,
+    });
     setTasks(data.tasks.reverse());
   }
 

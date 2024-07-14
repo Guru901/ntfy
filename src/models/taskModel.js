@@ -19,6 +19,10 @@ const userSchema = mongoose.Schema(
       required: [true, "Status is required"],
       default: "Pending",
     },
+    byUser: {
+      type: mongoose.Types.ObjectId,
+      required: true,
+    },
   },
   { timestamps: true }
 );

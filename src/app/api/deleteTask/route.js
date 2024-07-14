@@ -8,8 +8,7 @@ export async function POST(request) {
   const { _id } = req;
 
   const task = await Task.findOneAndDelete({ _id: _id });
-  const tasks = await Task.find({});
 
-  const response = NextResponse.json(tasks);
+  const response = NextResponse.json({ success: true });
   return response;
 }
