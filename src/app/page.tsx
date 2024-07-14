@@ -263,6 +263,7 @@ export default function Home() {
   }
 
   async function handleTaskAddSubmit() {
+    setLoading(true)
     const { data } = await axios.post("/api/addTask", {
       title: addTaskForm.title,
       subject: addTaskForm.subject,
@@ -270,6 +271,7 @@ export default function Home() {
       id: loggedInUser._id,
     });
     setTasks(data.tasks.reverse());
+    setLoading(false)
   }
 
   if (loading)
