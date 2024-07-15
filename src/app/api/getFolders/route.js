@@ -1,0 +1,17 @@
+import Folder from "@/models/folderModel";
+import { NextResponse } from "next/server";
+import connect from "@/dbconfig/connect";
+
+export async function POST(request) {
+  connect();
+  const req = await request.json();
+  const { location } = req;
+  const folders = await Folder.find({ location });
+  if (!folders) {
+    const response = NextResponse.json("sed :(");
+    return response;
+  }
+  console.log(folders);
+  const response = NextResponse.json(folders);
+  return response;
+}

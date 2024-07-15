@@ -35,7 +35,8 @@ export default function Navbar() {
       <div className="flex gap-12">
         <h1 className="text-2xl font-bold">NTFY</h1>
         <div className="flex gap-5 font-medium items-center">
-          <Link href="/">Home</Link>
+          <Link href="/">Tasks</Link>
+          <Link href="/questions">Questions</Link>
         </div>
       </div>
       <div className="flex">
