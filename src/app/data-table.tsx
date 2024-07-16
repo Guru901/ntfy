@@ -23,17 +23,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Link from "next/link";
 import { Loader2 } from "lucide-react";
-
-type Task = {
-  id: string;
-  priority: "High" | "Medium" | "Low";
-  status: "Completed" | "Pending";
-  title: string;
-  date: string;
-  subject: string;
-};
+import { Task } from "@/lib/type";
 
 interface DataTableProps<Task, TValue> {
   columns: ColumnDef<Task, TValue>[];
@@ -83,7 +74,7 @@ export default function DataTable<Task, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   );
@@ -102,7 +93,7 @@ export default function DataTable<Task, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}

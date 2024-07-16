@@ -37,6 +37,8 @@ import DataTable from "./data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { DialogClose } from "@radix-ui/react-dialog";
 import Link from "next/link";
+import { TaskForm, Task } from "@/lib/type";
+import Loader from "@/components/loader";
 
 export default function Home() {
   const [addTaskForm, setAddTaskForm] = useState<TaskForm>({} as TaskForm);
@@ -49,21 +51,6 @@ export default function Home() {
   interface User {
     _id: string;
   }
-
-  type TaskForm = {
-    title: string;
-    priority: string;
-    subject: string;
-  };
-  type Task = {
-    _id: any;
-    id: string;
-    priority: "High" | "Medium" | "Low";
-    status: "Completed" | "Pending";
-    title: string;
-    date: string;
-    subject: string;
-  };
 
   const columns: ColumnDef<Task>[] = [
     {
@@ -272,12 +259,7 @@ export default function Home() {
     setTasks(data.tasks.reverse());
   }
 
-  if (loading)
-    return (
-      <div className="h-screen w-screen flex items-center justify-center">
-        <Loader2 className=" animate-spin" />
-      </div>
-    );
+  if (loading) return <Loader />;
   if (!loggedInUser?._id) return <LoginFirst />;
 
   return (

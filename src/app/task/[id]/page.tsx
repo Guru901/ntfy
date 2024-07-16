@@ -1,13 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -19,10 +13,10 @@ import {
 } from "@/components/ui/select";
 import getTaskById from "@/helpers/getTaskById";
 import axios from "axios";
-import { Loader, Loader2 } from "lucide-react";
-import Link from "next/link";
+import { Loader2 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { EditFormTask, Task } from "@/lib/type";
 export default function TaskId() {
   const [editTask, setEditTask] = useState<EditFormTask>({} as EditFormTask);
   const [loading, setLoading] = useState(true);
@@ -31,14 +25,6 @@ export default function TaskId() {
   let pathName = usePathname();
   pathName = pathName.split("/")[2];
   const router = useRouter();
-
-  type EditFormTask = {
-    _id: string;
-    title: string;
-    status: string;
-    priority: string;
-    subject: string;
-  };
 
   const [editTaskForm, setEditTaskForm] = useState<EditFormTask>({
     _id: pathName,
