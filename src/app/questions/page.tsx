@@ -18,7 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LucideCross } from "lucide-react";
+import { LucideCross, Plus } from "lucide-react";
 import axios from "axios";
 import getLoggedInUser from "@/helpers/getLoggedInUser";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -35,6 +35,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
+import ReadMe from "@/components/readMe";
 
 interface EnterDetailsProps {
   setEnterDetailsTrigger: any;
@@ -94,6 +95,7 @@ export default function Questions() {
   const [doubleClickedFolder, setDoubleClickedFolder] = useState<
     string | undefined
   >();
+  const [showReadMe, setShowReadMe] = useState(false);
   const router = useRouter();
 
   type Folders = {
@@ -153,20 +155,40 @@ export default function Questions() {
     );
   }
 
+  if (showReadMe) return <ReadMe setShowReadMe={setShowReadMe} />;
+
+  if (enterDetailsTrigger)
+    return (
+      <EnterDetails
+        createFolder={createFolder}
+        name={name}
+        setEnterDetailsTrigger={setEnterDetailsTrigger}
+        setName={setName}
+      />
+    );
+
   return (
     <>
-      <h1 className="px-12 text-2xl font-medium py-6">Welcome</h1>
-      {enterDetailsTrigger && (
-        <EnterDetails
-          createFolder={createFolder}
-          name={name}
-          setEnterDetailsTrigger={setEnterDetailsTrigger}
-          setName={setName}
-        />
-      )}
+      <div className="flex px-12 py-6 justify-between">
+        <h1 className="text-2xl font-medium">Welcome</h1>
+        <Button
+          className="flex gap-2 w-25"
+          variant={"secondary"}
+          onClick={() => setEnterDetailsTrigger(true)}
+        >
+          <Plus className="w-4" />
+          Create New
+        </Button>
+      </div>
       <ContextMenu>
         <ContextMenuTrigger className="h-screen w-screen">
           <div className="w-screen h-screen px-12 flex flex-col gap-2">
+            <div
+              className="w-[20rem] bg-zinc-900 p-3 rounded-lg hover:bg-secondary cursor-pointer"
+              onClick={() => setShowReadMe(true)}
+            >
+              <h1 className="select-none font-bold">Read Me</h1>
+            </div>
             {folders?.map((x) => (
               <ContextMenu key={x._id}>
                 <ContextMenuTrigger className="w-min">
@@ -179,7 +201,12 @@ export default function Questions() {
                 </ContextMenuTrigger>
 
                 <ContextMenuContent className="w-64">
-                  <ContextMenuItem inset>Open</ContextMenuItem>
+                  <ContextMenuItem
+                    inset
+                    onClick={() => setDoubleClickedFolder(x._id)}
+                  >
+                    Open
+                  </ContextMenuItem>
                   <ContextMenuItem inset>Delete Folder</ContextMenuItem>
                 </ContextMenuContent>
               </ContextMenu>
