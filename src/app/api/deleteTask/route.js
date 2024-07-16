@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import connect from "@/dbconfig/connect";
 import Task from "@/models/taskModel";
 
 export async function POST(request) {
-  connect();
+  await connect();
   const req = await request.json();
   const { _id } = req;
 

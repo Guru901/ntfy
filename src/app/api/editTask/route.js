@@ -4,16 +4,14 @@ import Task from "@/models/taskModel";
 
 export async function POST(request) {
   try {
-    console.log("here");
+    await connect();
     const req = await request.json();
     const { _id, status, title, subject, priority } = req;
-    console.log(req);
-    console.log(_id);
 
     const task = await Task.findOneAndUpdate(
-      { _id }, // Find task by _id
-      { status, title, subject, priority }, // Update fields
-      { new: true, runValidators: true } // Return updated document
+      { _id },
+      { status, title, subject, priority },
+      { new: true, runValidators: true }
     );
 
     if (!task) {
