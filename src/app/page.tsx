@@ -380,14 +380,7 @@ export default function Home() {
           </div>
         </div>
       </ContextMenuTrigger>
-      <ContextMenuContent className="flex flex-col gap-1">
-        <Button
-          onClick={() => getAllTasks()}
-          variant="ghost"
-          className="h-[2rem] w-full flex justify-start"
-        >
-          Refresh
-        </Button>
+      <ContextMenuContent className="flex flex-col gap-1">   
         <Dialog>
           <DialogTrigger asChild>
             <Button
@@ -468,6 +461,13 @@ export default function Home() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+        <Button
+          onClick={() => getAllTasks()}
+          variant="ghost"
+          className="h-[2rem] w-full flex justify-start"
+        >
+          Refresh
+        </Button>
       </ContextMenuContent>
     </ContextMenu>
   );
