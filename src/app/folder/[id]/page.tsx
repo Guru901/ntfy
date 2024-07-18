@@ -114,7 +114,7 @@ export default function Folder() {
           <Button onClick={() => setUploading(true)}>Upload</Button>
         </div>
       </div>
-      <div className="w-full h-full flex justify-start">
+      <div className="w-full h-full flex justify-start gap-2">
         {questions.map((x: string) => (
           <img src={x} className="object-cover h-[10rem] rounded-md" key={x} />
         ))}
