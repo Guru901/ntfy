@@ -50,6 +50,7 @@ function EnterDetails({ setUplading, pathName }: any) {
               name="question"
               id="question"
               required
+              accept="image/*"
               onChange={(e) => {
                 setFile(e.target.files?.[0]);
               }}
