@@ -12,14 +12,15 @@ const folderSchema = mongoose.Schema(
       required: true,
     },
     files: {
-      type: [mongoose.Types.ObjectId],
+      type: [String],
+      default: [],
     },
     location: {
       type: String,
       required: true,
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const Folder =

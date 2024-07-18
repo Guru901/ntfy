@@ -8,7 +8,6 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import { Input } from "@/components/ui/input";
-import { DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import {
@@ -22,18 +21,7 @@ import { LucideCross, Plus } from "lucide-react";
 import axios from "axios";
 import getLoggedInUser from "@/helpers/getLoggedInUser";
 import { Skeleton } from "@/components/ui/skeleton";
-import Link from "next/link";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+
 import { useRouter } from "next/navigation";
 import ReadMe from "@/components/readMe";
 

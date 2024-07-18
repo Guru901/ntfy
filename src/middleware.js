@@ -18,15 +18,5 @@ export function middleware(request) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: [
-    "/feed",
-    "/post/:path*",
-    "/post/",
-    "/profile",
-    "/login",
-    "/signup",
-    "/chat",
-    "/search",
-    "/change__password",
-  ],
+  matcher: ["/login", "task", "/signup", "/questions", "/folder", "/"],
 };

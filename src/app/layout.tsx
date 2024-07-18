@@ -3,6 +3,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar/page";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 const inter = Open_Sans({ subsets: ["latin"] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          {children}
+          <EdgeStoreProvider>{children}</EdgeStoreProvider>
         </ThemeProvider>
       </body>
     </html>
