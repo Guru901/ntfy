@@ -50,7 +50,6 @@ function EnterDetails({ setUplading, pathName }: any) {
               name="question"
               id="question"
               required
-              accept="image/*"
               onChange={(e) => {
                 setFile(e.target.files?.[0]);
               }}
@@ -115,9 +114,13 @@ export default function Folder() {
           <Button onClick={() => setUploading(true)}>Upload</Button>
         </div>
       </div>
-      <div className="w-full h-full flex justify-start gap-2">
+      <div
+        className={`grid w-full h-full ${
+          questions.length > 4 ? `grid-cols-4` : `gird-cols-2`
+        } gap-2 auto-rows-masonry`}
+      >
         {questions.map((x: string) => (
-          <img src={x} className="object-cover h-[10rem] rounded-md" key={x} />
+          <img src={x} className="w-full object-cover rounded-md" key={x} />
         ))}
       </div>
     </div>
