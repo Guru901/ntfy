@@ -115,7 +115,7 @@ export default function Folder() {
         </div>
       </div>
       <div
-        className={`grid w-full h-full ${
+        className={`grid w-full h-[calc(min-content+20px)] ${
           questions.length > 4 ? `grid-cols-3` : `grid-cols-2`
         } gap-2 auto-rows-masonry`}
       >
