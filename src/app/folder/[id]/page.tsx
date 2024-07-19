@@ -116,7 +116,7 @@ export default function Folder() {
       </div>
       <div
         className={`grid w-full h-full ${
-          questions.length > 4 ? `grid-cols-3` : `gird-cols-2`
+          questions.length > 4 ? `grid-cols-3` : `grid-cols-2`
         } gap-2 auto-rows-masonry`}
       >
         {questions.map((x: string) => (
