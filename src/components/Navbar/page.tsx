@@ -42,9 +42,6 @@ export default function Navbar() {
       <div className="flex">
         {loggedInUser?._id ? (
           <div className="flex gap-2">
-            <Link href="/">
-              <Button>Profile</Button>
-            </Link>
             <Button variant="outline" onClick={handleLogout}>
               Logout
             </Button>
