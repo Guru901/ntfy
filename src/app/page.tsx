@@ -93,24 +93,11 @@ export default function Home() {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <div className="px-0 py-10 flex flex-col gap-4 md:px-10">
-          <div className="flex flex-col">
-            <h1 className="text-2xl font-bold">Welcome back!</h1>
-            <p className="text-sm text-gray-400">
-              Here is a list of your tasks for this month!
-            </p>
-          </div>
-          <div>
-            <div className="flex w-full max-w-sm items-center space-x-2">
-              <Input type="email" placeholder="Filter Tasks" className="h-8" />
-              <Button type="submit" variant={"outline"} className="text-xs h-8">
-                Status
-              </Button>
-              <Button type="submit" variant={"outline"} className="text-xs h-8">
-                Priority
-              </Button>
-            </div>
-          </div>
+        <div className="px-0 py-10 pb-5 flex flex-col gap-4 md:px-10">
+          <h1 className="text-2xl font-bold">Welcome back!</h1>
+          <p className="text-sm text-gray-400">
+            Here is a list of your tasks for this month!
+          </p>
           <div>
             <div className="w-full flex flex-col gap-2">
               <div className="w-full flex items-center justify-end gap-2">

@@ -25,6 +25,15 @@ import {
 } from "@/components/ui/table";
 import { Loader2 } from "lucide-react";
 import { Task } from "@/lib/type";
+import { Input } from "@/components/ui/input";
+import {
+  SelectItem,
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { statusList, subjectList } from "@/lib/contants";
 
 interface DataTableProps<Task, TValue> {
   columns: ColumnDef<Task, TValue>[];
@@ -62,6 +71,54 @@ export default function DataTable<Task, TValue>({
 
   return (
     <div className="w-full flex flex-col gap-2">
+      <div className="flex items-center py-4 gap-2">
+        <Input
+          placeholder="Filter titles..."
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("title")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <Select
+          onValueChange={(e) =>
+            table
+              .getColumn("status")
+              ?.setFilterValue(e === "all" ? undefined : e)
+          }
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            {statusList.map((status) => (
+              <SelectItem key={status.value} value={status.value}>
+                {status.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select
+          onValueChange={(e) =>
+            table
+              .getColumn("subject")
+              ?.setFilterValue(e === "all" ? undefined : e)
+          }
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            {subjectList.map((subject) => (
+              <SelectItem key={subject.value} value={subject.value}>
+                {subject.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
