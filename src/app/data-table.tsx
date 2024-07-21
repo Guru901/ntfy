@@ -80,25 +80,7 @@ export default function DataTable<Task, TValue>({
           }
           className="max-w-sm"
         />
-        <Select
-          onValueChange={(e) =>
-            table
-              .getColumn("status")
-              ?.setFilterValue(e === "all" ? undefined : e)
-          }
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            {statusList.map((status) => (
-              <SelectItem key={status.value} value={status.value}>
-                {status.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      
         <Select
           onValueChange={(e) =>
             table
@@ -114,6 +96,25 @@ export default function DataTable<Task, TValue>({
             {subjectList.map((subject) => (
               <SelectItem key={subject.value} value={subject.value}>
                 {subject.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select
+          onValueChange={(e) =>
+            table
+              .getColumn("status")
+              ?.setFilterValue(e === "all" ? undefined : e)
+          }
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            {statusList.map((status) => (
+              <SelectItem key={status.value} value={status.value}>
+                {status.label}
               </SelectItem>
             ))}
           </SelectContent>
