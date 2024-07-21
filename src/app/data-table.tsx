@@ -89,7 +89,7 @@ export default function DataTable<Task, TValue>({
           }
         >
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder="Subject" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All</SelectItem>
