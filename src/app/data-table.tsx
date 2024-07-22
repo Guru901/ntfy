@@ -72,12 +72,12 @@ export default function DataTable<Task, TValue>({
     <div className="w-full flex flex-col gap-2">
       <div className="flex items-center py-4 gap-2">
         <Input
-          placeholder="Filter titles..."
+          placeholder="Search Tasks"
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="w-[220px]"
         />
         <Select
           onValueChange={(e) =>
@@ -86,7 +86,7 @@ export default function DataTable<Task, TValue>({
               ?.setFilterValue(e === "all" ? undefined : e)
           }
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[130px]">
             <SelectValue placeholder="Subject" />
           </SelectTrigger>
           <SelectContent>
@@ -105,7 +105,7 @@ export default function DataTable<Task, TValue>({
               ?.setFilterValue(e === "all" ? undefined : e)
           }
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[130px]">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
