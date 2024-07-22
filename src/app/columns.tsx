@@ -51,42 +51,26 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "title",
 
-    header: ({ column }) => {
+    header: () => <div className="text-right">Title</div>,
+
+    cell: ({ row }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Title
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        <div className="text-right font-medium">{row.getValue("title")}</div>
       );
     },
-
-    cell: ({ row }) => (
-      <div className="capitalize"> {row.getValue("title")}</div>
-    ),
-  },
+  }
 
   {
     accessorKey: "subject",
 
-    header: ({ column }) => {
+    header: () => <div className="text-right">Subject</div>,
+
+    cell: ({ row }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Subject
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        <div className="text-right font-medium">{row.getValue("subject")}</div>
       );
     },
-
-    cell: ({ row }) => (
-      <div className="capitalize"> {row.getValue("subject")}</div>
-    ),
-  },
+  }
 
   {
     accessorKey: "status",
