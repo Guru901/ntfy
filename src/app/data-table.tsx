@@ -23,7 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Loader2 } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { Task } from "@/lib/type";
 import { Input } from "@/components/ui/input";
 import {
@@ -45,7 +45,6 @@ export default function DataTable<Task, TValue>({
 }: DataTableProps<Task, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
@@ -80,7 +79,6 @@ export default function DataTable<Task, TValue>({
           }
           className="max-w-sm"
         />
-      
         <Select
           onValueChange={(e) =>
             table

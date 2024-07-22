@@ -51,26 +51,22 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "title",
 
-    header: () => <div className="text-right">Title</div>,
+    header: () => <div>Title</div>,
 
     cell: ({ row }) => {
-      return (
-        <div className="text-right font-medium">{row.getValue("title")}</div>
-      );
+      return <div className="font-medium">{row.getValue("title")}</div>;
     },
-  }
+  },
 
   {
     accessorKey: "subject",
 
-    header: () => <div className="text-right">Subject</div>,
+    header: () => <div>Subject</div>,
 
     cell: ({ row }) => {
-      return (
-        <div className="text-right font-medium">{row.getValue("subject")}</div>
-      );
+      return <div className="font-medium">{row.getValue("subject")}</div>;
     },
-  }
+  },
 
   {
     accessorKey: "status",
