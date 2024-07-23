@@ -22,6 +22,10 @@ export const statusList = [
     value: "Completed",
     label: "Completed",
   },
+  {
+    value: "On Hold",
+    label: "On Hold",
+  },
 ];
 
 export const subjectList = [

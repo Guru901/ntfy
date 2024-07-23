@@ -7,7 +7,7 @@ export type Task = {
   _id: any;
   id: string;
   priority: "High" | "Medium" | "Low";
-  status: "Completed" | "Pending";
+  status: "Completed" | "Pending" | "On Hold";
   title: string;
   date: string;
   subject: string;
