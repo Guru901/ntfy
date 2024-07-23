@@ -114,11 +114,7 @@ export default function Folder() {
           <Button onClick={() => setUploading(true)}>Upload</Button>
         </div>
       </div>
-      <div
-        className={`grid w-full h-[calc(min-content+20px)] ${
-          questions.length > 4 ? `grid-cols-3` : `grid-cols-2`
-        } gap-2 auto-rows-masonry`}
-      >
+      <div className="columns-2 gap-2 space-y-2">
         {questions.map((x: string) => (
           <img src={x} className="w-full object-cover rounded-md" key={x} />
         ))}
