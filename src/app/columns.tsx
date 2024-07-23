@@ -54,7 +54,7 @@ export const columns: ColumnDef<Task>[] = [
     header: () => <div>Title</div>,
 
     cell: ({ row }) => {
-      return <div className="font-medium">{row.getValue("title")}</div>;
+      return <div className="font-medium capitalize">{row.getValue("title")}</div>;
     },
   },
 
