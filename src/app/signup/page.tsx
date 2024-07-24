@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 export default function LoginForm() {
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({});
+  const [error, setError] = useState("");
   const router = useRouter();
   function handleChange(e: any) {
     setForm({
@@ -32,7 +33,7 @@ export default function LoginForm() {
     const { data } = await axios.post("/api/register", {
       form,
     });
-    console.log(data);
+    setError(data.msg);
     if (data.success) {
       location.reload();
     }
@@ -81,6 +82,7 @@ export default function LoginForm() {
                 onChange={handleChange}
               />
             </div>
+            <p className="text-xs">{error}</p>
             {loading ? (
               <Button type="submit" className="w-full" onClick={handleSubmit}>
                 Create an account

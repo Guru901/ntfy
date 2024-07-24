@@ -10,7 +10,15 @@ export async function POST(request) {
     const req = await request.json();
 
     const { email, username, password } = req.form;
-    const existingUser = await User.findOne({ email: email });
+    let existingUser = await User.findOne({ email: email });
+    if (existingUser) {
+      return NextResponse.json({
+        success: false,
+        msg: "Email already exists",
+      });
+    }
+
+    existingUser = await User.findOne({ username: username });
     if (existingUser) {
       return NextResponse.json({
         success: false,
