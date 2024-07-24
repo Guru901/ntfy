@@ -35,6 +35,7 @@ import {
   ContextMenuContent,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [addTaskForm, setAddTaskForm] = useState<TaskForm>({} as TaskForm);
@@ -42,6 +43,8 @@ export default function Home() {
   const [taskToEdit, setTaskToEdit] = useState({});
   const [loading, setLoading] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<User>({ _id: "" });
+
+  const router = useRouter();
 
   interface User {
     _id: string;
@@ -192,7 +195,7 @@ export default function Home() {
         <Dialog>
           <DialogTrigger asChild>
             <Button
-              className="h-[2rem] w-full flex justify-start"
+              className="h-[1.8rem] w-full flex justify-start"
               variant="ghost"
             >
               Add Task
@@ -272,9 +275,16 @@ export default function Home() {
         <Button
           onClick={() => getAllTasks()}
           variant="ghost"
-          className="h-[2rem] w-full flex justify-start"
+          className="h-[1.8rem] w-full flex justify-start"
         >
           Refresh
+        </Button>
+        <Button
+          onClick={() => router.back()}
+          variant="ghost"
+          className="h-[1.8rem] w-full flex justify-start"
+        >
+          Back
         </Button>
       </ContextMenuContent>
     </ContextMenu>

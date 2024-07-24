@@ -201,13 +201,12 @@ export default function Questions() {
             ))}
           </div>
         </ContextMenuTrigger>
-        <ContextMenuContent className="w-64">
-          <ContextMenuItem inset onClick={() => getFolder()}>
-            Refresh
-          </ContextMenuItem>
-          <ContextMenuItem inset onClick={() => setEnterDetailsTrigger(true)}>
+        <ContextMenuContent>
+          <ContextMenuItem onClick={() => getFolder()}>Refresh</ContextMenuItem>
+          <ContextMenuItem onClick={() => setEnterDetailsTrigger(true)}>
             Create New Folder
           </ContextMenuItem>
+          <ContextMenuItem onClick={() => router.back()}>Back</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
     </>
