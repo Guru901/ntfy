@@ -124,7 +124,7 @@ export default function QuesCount() {
             </SelectContent>
           </Select>
           {loading ? (
-            <Button disabled>
+            <Button disabled className="h-[38px]">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Please Wait
             </Button>
