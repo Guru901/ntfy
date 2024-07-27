@@ -25,7 +25,7 @@ export default function QuesCount() {
   >([]);
 
   const [form, setForm] = useState({
-    questionsSolved: 0,
+    questions: "",
     subject: "",
   });
   const [loading, setLoading] = useState(false);
