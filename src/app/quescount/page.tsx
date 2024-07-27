@@ -67,9 +67,9 @@ export default function QuesCount() {
       });
 
       // Set the state with the sorted data
-      setMathQuestions(subjectA);
-      setPhysicsQuestions(subjectB);
-      setChemistryQuestions(subjectC);
+      setMathQuestions(subjectA.reverse());
+      setPhysicsQuestions(subjectB.reverse());
+      setChemistryQuestions(subjectC.reverse());
 
       setLoading(false);
     } catch (error) {
