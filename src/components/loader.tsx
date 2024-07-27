@@ -1,6 +1,6 @@
 import { Loader2 } from "lucide-react";
 
-export default function Loader({ styles }) {
+export default function Loader({ styles }: { styles?: string }) {
   return (
     <div
       className={`${
