@@ -130,7 +130,7 @@ export default function DataTable<Task, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -149,7 +149,7 @@ export default function DataTable<Task, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -161,9 +161,7 @@ export default function DataTable<Task, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  <div className="h-screen w-screen flex items-center justify-center">
-                    <Loader2 className=" animate-spin" />
-                  </div>
+                  No results
                 </TableCell>
               </TableRow>
             )}

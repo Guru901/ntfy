@@ -14,15 +14,19 @@ import axios from "axios";
 import { DataTable } from "./data-table";
 import { columns, QuestionsCount } from "./columns";
 import { Loader2 } from "lucide-react";
+import getLoggedInUser from "@/helpers/getLoggedInUser";
+import { User } from "@/lib/type";
 
 export default function QuesCount() {
   const [mathQuesitions, setMathQuestions] = useState<QuestionsCount[]>([]);
   const [physicsQuestions, setPhysicsQuestions] = useState<QuestionsCount[]>(
-    []
+    [],
   );
   const [chemistryQuestions, setChemistryQuestions] = useState<
     QuestionsCount[]
   >([]);
+
+  const [loggedInUser, setLoggedInUser] = useState({});
 
   const [form, setForm] = useState({
     questions: "",
@@ -33,7 +37,11 @@ export default function QuesCount() {
   async function getQuestionsSolved() {
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/getQuesCount");
+      const user = await getLoggedInUser();
+      setLoggedInUser(user);
+      const { data } = await axios.post("/api/getQuesCount", {
+        user: user,
+      });
 
       // Define arrays to hold questions for each subject
       const subjectA: QuestionsCount[] = [];
@@ -66,7 +74,6 @@ export default function QuesCount() {
         }
       });
 
-      // Set the state with the sorted data
       setMathQuestions(subjectA.reverse());
       setPhysicsQuestions(subjectB.reverse());
       setChemistryQuestions(subjectC.reverse());
@@ -81,7 +88,10 @@ export default function QuesCount() {
   async function submitForm() {
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/quescount", form);
+      const { data } = await axios.post("/api/quescount", {
+        form,
+        loggedInUser,
+      });
       getQuestionsSolved();
       setLoading(false);
     } catch (error) {

@@ -10,8 +10,12 @@ const questSchema = mongoose.Schema(
       type: String,
       required: [true, "question is required"],
     },
+    byUser: {
+      type: mongoose.Schema.ObjectId,
+      required: [true, "userId is required"],
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Questions =

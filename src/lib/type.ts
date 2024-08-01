@@ -20,3 +20,9 @@ export type EditFormTask = {
   priority: string;
   subject: string;
 };
+
+export type User = {
+  name: string;
+  email: string;
+  _id: string;
+};

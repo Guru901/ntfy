@@ -4,10 +4,12 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   try {
     const req = await request.json();
-    const { subject, questions } = req;
+    const { subject, questions } = req.form;
+    const { _id } = req.loggedInUser;
     const newQuestion = {
       subject: subject,
       questions: questions,
+      byUser: _id,
     };
     await Questions.create(newQuestion);
 
@@ -18,7 +20,7 @@ export async function POST(request) {
   } catch (error) {
     return NextResponse.json(
       { success: false, msg: "Something went wrong" },
-      error.message
+      error.message,
     );
   }
 }
