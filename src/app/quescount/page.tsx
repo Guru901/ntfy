@@ -109,7 +109,7 @@ export default function QuesCount() {
     <div className="flex flex-col p-10 gap-20">
       <div className="flex gap-10  flex-col ">
         <div className="flex gap-3  flex-col justify-center">
-          <h1 className="text-2xl">Daily Question Target : 75</h1>
+          <h1 className="text-2xl">Daily Question Target : 90</h1>
           <p className="text-sm">
             Enter the no of questions you have solved today
           </p>
