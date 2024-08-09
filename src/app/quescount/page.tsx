@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/select";
 import axios from "axios";
 import { DataTable } from "./data-table";
-import { columns, QuestionsCount } from "./columns";
+import { columns } from "./columns";
+import { QuestionsCount } from "@/lib/type";
 import { Loader2 } from "lucide-react";
 import getLoggedInUser from "@/helpers/getLoggedInUser";
 import { User } from "@/lib/type";

@@ -26,3 +26,16 @@ export type User = {
   email: string;
   _id: string;
 };
+
+export type QuestionsCount = {
+  _id: any;
+  questions: string;
+  subject: string;
+  date: string;
+};
+
+export type EditQuestionForm = {
+  _id?: string;
+  subject: string;
+  questions: string;
+};
