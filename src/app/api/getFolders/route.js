@@ -12,7 +12,6 @@ export async function POST(request) {
       const response = NextResponse.json("sed :(");
       return response;
     }
-    console.log(folders);
     const response = NextResponse.json(folders);
     return response;
   } catch (error) {

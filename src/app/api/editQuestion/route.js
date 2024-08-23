@@ -8,7 +8,6 @@ export async function POST(request) {
     const req = await request.json();
     const { _id, subject, questions } = req;
     const question = await Questions.findById(_id);
-    console.log(question);
     if (!question) {
       return NextResponse.json({
         success: false,

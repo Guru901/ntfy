@@ -11,7 +11,6 @@ export async function POST(request) {
     const user = await User.findOne({
       email: email,
     });
-    console.log(user);
     if (!user) {
       return Response.json({ success: false, msg: "User doesn't exists" });
     }

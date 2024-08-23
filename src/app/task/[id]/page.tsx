@@ -44,7 +44,6 @@ export default function TaskId() {
 
   async function submitEditedTask() {
     setBtnLoading(true);
-    console.log(editTaskForm);
     const { data } = await axios.post("/api/editTask", editTaskForm);
     if (data?.success) {
       router.push("/");

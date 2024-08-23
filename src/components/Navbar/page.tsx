@@ -26,6 +26,14 @@ export default function Navbar() {
     }
   }
 
+  const links = [
+    { name: "Tasks", href: "/" },
+    { name: "Questions", href: "/questions" },
+    { name: "QuesCount", href: "/quescount" },
+    { name: "Weak Topics", href: "/weaktopics" },
+  ];
+
+
   useEffect(() => {
     setUser();
   }, []);
@@ -33,11 +41,13 @@ export default function Navbar() {
   return (
     <div className="flex justify-between px-4 p-2 items-center">
       <div className="flex gap-12">
-        <h1 className="text-2xl font-bold">NTFY</h1>
+        <h1 className="text-2xl pl-4 font-bold">NTFY</h1>
         <div className="flex gap-7 font-medium items-center">
-          <Link href="/">Tasks</Link>
-          <Link href="/questions">Questions</Link>
-          <Link href="/quescount">QuesCount</Link>
+	  {links.map((link) => (
+	    <Link key={link.name} href={link.href}>
+		  {link.name}
+	    </Link>
+	  ))}
         </div>
       </div>
       <div className="flex">

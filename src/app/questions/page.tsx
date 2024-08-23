@@ -94,13 +94,11 @@ export default function Questions() {
   async function createFolder() {
     setLoading(true);
     const user = await getLoggedInUser();
-    console.log(user);
     const { data } = await axios.post("/api/createFolder", {
       name,
       id: user._id,
       location: "/",
     });
-    console.log(data);
     setEnterDetailsTrigger(false);
     getFolder();
     setLoading(false);
@@ -111,7 +109,6 @@ export default function Questions() {
     const { data } = await axios.post("/api/getFolders", {
       location: "/",
     });
-    console.log(data);
     setFolder(data.reverse());
     setLoading(false);
   }
