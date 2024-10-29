@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 export default function RegisterForm() {
   const { setUser } = useUserStore();
 
-  const router = useRouter();
+  const { push } = useRouter();
 
   const {
     register,
@@ -39,9 +39,9 @@ export default function RegisterForm() {
         name: user?.name,
         email: user.email,
       });
-
-      router.push("/");
     }
+
+    push("/tasks");
   };
 
   return (

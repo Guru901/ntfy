@@ -23,8 +23,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CalendarIcon, Loader2 } from "lucide-react";
-import { Task } from "@/lib/type";
 import { Input } from "@/components/ui/input";
 import {
   SelectItem,
@@ -130,7 +128,7 @@ export default function DataTable<Task, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   );
@@ -149,7 +147,7 @@ export default function DataTable<Task, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}

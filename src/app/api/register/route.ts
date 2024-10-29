@@ -2,7 +2,6 @@ import connectToDb from "@/dbconfig/connectToDb";
 import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { setCookie } from "cookies-next";
 
 export async function POST(request: Request) {
   try {
@@ -43,16 +42,19 @@ export async function POST(request: Request) {
     const expires = new Date();
     expires.setDate(expires.getDate() + 7);
 
-    setCookie("token", token, {
+    const response = NextResponse.json({
+      success: true,
+      user: newUser,
+    });
+
+    response.cookies.set("token", token, {
       httpOnly: true,
+      expires,
     });
 
     newUser.password = "";
 
-    return NextResponse.json({
-      success: true,
-      user: newUser,
-    });
+    return response;
   } catch (error) {
     return NextResponse.json({
       success: false,

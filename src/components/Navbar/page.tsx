@@ -23,7 +23,7 @@ export default function Navbar() {
   }
 
   const links = [
-    { name: "Tasks", href: "/" },
+    { name: "Tasks", href: "/tasks" },
     { name: "Questions", href: "/questions" },
     { name: "QuesCount", href: "/quescount" },
     { name: "Weak Topics", href: "/weaktopics" },
@@ -32,7 +32,9 @@ export default function Navbar() {
   return (
     <div className="flex justify-between px-4 p-2 items-center">
       <div className="flex gap-12">
-        <h1 className="text-2xl pl-4 font-bold">NTFY</h1>
+        <Link href="/">
+          <h1 className="text-2xl pl-4 font-bold">NTFY</h1>
+        </Link>
         <div className="flex gap-7 font-medium items-center">
           {links.map((link) => (
             <Link key={link.name} href={link.href}>

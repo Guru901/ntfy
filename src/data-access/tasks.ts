@@ -6,13 +6,13 @@ type GetTasksResponse = {
   tasks?: [];
 };
 
-export async function getTasks(): Promise<GetTasksResponse> {
+export async function getTasks(userId: string): Promise<GetTasksResponse> {
   try {
     const { data } = await axios.get<{
       error?: string;
       tasks?: any;
       success: boolean;
-    }>("/api/getAllTasks");
+    }>("/api/getAllTasks?userId=" + userId);
 
     if (!data.success && data.error) {
       return {

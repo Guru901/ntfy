@@ -6,22 +6,27 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   if (!token) {
-    if (path !== "/login" && path !== "/" && path !== "/signup") {
+    if (path !== "/login" && path !== "/signup" && path !== "/") {
       return NextResponse.redirect(new URL("/login", request.nextUrl));
     }
   } else {
     if (path === "/login" || path === "/signup") {
-      return NextResponse.redirect(new URL("/", request.nextUrl));
+      return NextResponse.redirect(new URL("/tasks", request.nextUrl));
     }
   }
 }
 
 export const config = {
   matcher: [
+    "/",
     "/login",
-    "/weaktopics",
-    "/task/:path",
     "/folder/:path",
     "/quescount",
+    "/question/:id",
+    "/questions",
+    "/signup",
+    "/task/:id",
+    "/tasks",
+    "/weaktopics",
   ],
 };

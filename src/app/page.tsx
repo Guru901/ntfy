@@ -1,277 +1,81 @@
-"use client";
-
-import { Label } from "@/components/ui/label";
-import { useEffect, useState } from "react";
+import { BackgroundBeams } from "@/components/AuroraBg/page";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { columns } from "@/app/columns";
-import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import axios from "axios";
-import DataTable from "./data-table";
-import { DialogClose } from "@radix-ui/react-dialog";
-import { TaskForm, Task } from "@/lib/type";
-import Loader from "@/components/loader";
-import { priorityList, subjectList } from "@/lib/contants";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu";
-import { useRouter } from "next/navigation";
-import { useUserStore } from "@/store/userStore";
-import Login from "@/app/login/page";
-import { getTasks } from "@/data-access/tasks";
+import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
+import Link from "next/link";
+import { HeroButtons, NavButtons } from "@/components/Buttons/page";
 
 export default function Home() {
-  const [addTaskForm, setAddTaskForm] = useState<TaskForm>({} as TaskForm);
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState<string[]>([]);
-
-  const { user } = useUserStore();
-
-  const router = useRouter();
-
-  useEffect(() => {
-    (async () => {
-      const { success, error, tasks } = await getTasks();
-      if (success && tasks) {
-        setTasks(tasks);
-      } else {
-        setErrors([...errors, error!]);
-      }
-    })();
-  }, []);
-
-  function handleTaskAddChange(e: any) {
-    setAddTaskForm({
-      ...addTaskForm,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  async function handleTaskAddSubmit() {
-    const { data } = await axios.post("/api/addTask", {
-      title: addTaskForm.title,
-      subject: addTaskForm.subject,
-      priority: addTaskForm.priority,
-      id: user?._id,
-    });
-    setTasks(data.tasks.reverse());
-  }
-
-  if (loading) return <Loader />;
-  if (!user?._id) return <Login />;
+  const links = [
+    {
+      label: "Tasks",
+      href: "/tasks",
+    },
+    {
+      label: "Questions",
+      href: "/questions",
+    },
+    {
+      label: "Ques Count",
+      href: "/quescount",
+    },
+    {
+      label: "Weak Topics",
+      href: "/weaktopics",
+    },
+  ];
 
   return (
-    <ContextMenu>
-      <ContextMenuTrigger>
-        <div className="px-0 py-10 pb-5 flex flex-col gap-4 md:px-10">
-          <h1 className="text-2xl font-bold">Welcome back!</h1>
-          <p className="text-sm text-gray-400">
-            Here is a list of your tasks for this month!
-          </p>
-          <div>
-            <div className="w-full flex flex-col gap-2">
-              <div className="w-full flex items-center justify-end gap-2">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button>Add Task</Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                      <DialogTitle>Add Task</DialogTitle>
-                      <DialogDescription>
-                        Add Todo here and click submit when you are done.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="title" className="text-right">
-                          Title
-                        </Label>
-                        <Input
-                          id="title"
-                          className="col-span-3"
-                          onChange={handleTaskAddChange}
-                          name="title"
-                        />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="priority" className="text-right">
-                          Priority
-                        </Label>
-                        <Select
-                          onValueChange={(e) =>
-                            setAddTaskForm({ ...addTaskForm, priority: e })
-                          }
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Priority" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {priorityList.map((priority) => (
-                              <SelectItem
-                                key={priority.value}
-                                value={priority.value}
-                              >
-                                {priority.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="subject" className="text-right">
-                          Subject
-                        </Label>
-                        <Select
-                          onValueChange={(e) =>
-                            setAddTaskForm({ ...addTaskForm, subject: e })
-                          }
-                        >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Subject" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {subjectList.map((subject) => (
-                              <SelectItem
-                                key={subject.value}
-                                value={subject.value}
-                              >
-                                {subject.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    <DialogFooter>
-                      <DialogClose asChild>
-                        <Button type="submit" onClick={handleTaskAddSubmit}>
-                          Save changes
-                        </Button>
-                      </DialogClose>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
-              </div>
-              <DataTable data={tasks} columns={columns} />
-            </div>
+    <div className="flex flex-col gap-9">
+      <div className="flex flex-col justify-between h-screen py-5">
+        <div className="flex flex-col justify-between items-center w-screen z-10 h-min gap-3">
+          <div className="flex justify-between items-center w-screen px-7">
+            <h1 className="font-bold text-gray-100 text-3xl">NTFY</h1>
+            <NavButtons />
           </div>
+          <Separator />
         </div>
-      </ContextMenuTrigger>
-      <ContextMenuContent className="flex flex-col gap-1">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button
-              className="h-[1.8rem] w-full flex justify-start"
-              variant="ghost"
-            >
-              Add Task
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Add Task</DialogTitle>
-              <DialogDescription>
-                Add Todo here and click submit when you are done.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="title" className="text-right">
-                  Title
-                </Label>
-                <Input
-                  id="title"
-                  className="col-span-3"
-                  onChange={handleTaskAddChange}
-                  name="title"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="priority" className="text-right">
-                  Priority
-                </Label>
-                <Select
-                  onValueChange={(e) =>
-                    setAddTaskForm({ ...addTaskForm, priority: e })
-                  }
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Priority" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {priorityList.map((priority) => (
-                      <SelectItem key={priority.value} value={priority.value}>
-                        {priority.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="subject" className="text-right">
-                  Subject
-                </Label>
-                <Select
-                  onValueChange={(e) =>
-                    setAddTaskForm({ ...addTaskForm, subject: e })
-                  }
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Subject" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {subjectList.map((subject) => (
-                      <SelectItem key={subject.value} value={subject.value}>
-                        {subject.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button type="submit" onClick={handleTaskAddSubmit}>
-                  Save changes
-                </Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-        <Button
-          onClick={() => location.reload()}
-          variant="ghost"
-          className="h-[1.8rem] w-full flex justify-start"
-        >
-          Refresh
-        </Button>
-        <Button
-          onClick={() => router.back()}
-          variant="ghost"
-          className="h-[1.8rem] w-full flex justify-start"
-        >
-          Back
-        </Button>
-      </ContextMenuContent>
-    </ContextMenu>
+        <div className="text-center flex flex-col gap-2 justify-center items-center">
+          <h1 className="text-[74px] font-extrabold text-center bg-gradient-to-tr from-white to-[#999999] bg-clip-text text-transparent -translate-y-6 leading-[1.1] tracking-tight">
+            Step Closer to Success, <br /> Every Day
+          </h1>
+          <p className="text-xl">
+            Stay motivated and organized as you work <br />
+            <span className="bg-gradient-to-tr from-white to-[#999999d8] bg-clip-text text-transparent">
+              towards your goals.
+            </span>
+          </p>
+          <HeroButtons />
+        </div>
+        <div></div>
+      </div>
+      <div className="flex items-center justify-center w-screen">
+        <Image
+          src="/demo.png"
+          alt="ntfy logo"
+          width={1200}
+          height={1000}
+          className="w-[calc(100vw-10rem)]"
+        />
+      </div>
+      <Card className="w-screen min-h-[40vh] flex justify-start items-center relative">
+        <div className="flex flex-col gap-2 text-center justify-start px-20">
+          <h1 className="text-2xl font-bold">NTFY</h1>
+          <Link href={"https://gurvinder.vercel.app"}>
+            <p className="text-md font-light">Created By Gurvinder Singh</p>
+          </Link>
+        </div>
+        <div className="flex gap-3 underline opacity-45 absolute right-10 bottom-8">
+          {links.map((x) => (
+            <Link key={x.label} href={x.href}>
+              {x.label}
+            </Link>
+          ))}
+        </div>
+      </Card>
+
+      <BackgroundBeams />
+    </div>
   );
 }

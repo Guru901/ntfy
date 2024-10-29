@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server";
-import { setCookie } from "cookies-next";
 
 export async function POST() {
   try {
-    setCookie("token", "", {
+    const response = NextResponse.json({
+      success: true,
+    });
+
+    response.cookies.set("token", "", {
       httpOnly: true,
     });
 
-    return NextResponse.json({
-      success: true,
-    });
+    return response;
   } catch (error) {
     console.log(error);
     return NextResponse.json({ msg: "Error logging out" });

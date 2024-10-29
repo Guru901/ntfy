@@ -7,15 +7,9 @@ export async function GET(request: NextRequest) {
   try {
     await connectToDb();
 
-    const token = request.cookies.get("token")!;
+    const id = request.nextUrl.searchParams.get("userId");
 
-    if (!token) {
-      return NextResponse.json({ success: false, msg: "Not authorized" });
-    }
-
-    const decodedToken = jwtDecode(String(token.value)) as { id: string };
-
-    const tasks = await Task.find({ byUser: decodedToken.id });
+    const tasks = await Task.find({ byUser: id });
 
     return NextResponse.json(
       {

@@ -2,7 +2,6 @@ import connectToDb from "@/dbconfig/connectToDb";
 import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { setCookie } from "cookies-next";
 
 export async function POST(request: Request) {
   try {
@@ -26,14 +25,16 @@ export async function POST(request: Request) {
 
       const token = jwt.sign(tokenData, process.env.TOKEN_SECRET as string);
 
-      setCookie("token", token, {
-        httpOnly: true,
-      });
-
-      return NextResponse.json({
+      const response = NextResponse.json({
         success: true,
         user: user,
       });
+
+      response.cookies.set("token", token, {
+        httpOnly: true,
+      });
+
+      return response;
     }
 
     return NextResponse.json({

@@ -16,7 +16,8 @@ import getLoggedInUser from "@/helpers/getLoggedInUser";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import WeakTopic from "@/models/weakTopicModel";
-import { format } from "path";
+import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
 
 type WeakTopic = {
   id: string;
