@@ -40,7 +40,7 @@ export default function LoginForm() {
         name: user?.name,
         email: user.email,
       });
-      push("/tasks");
+      location.reload();
     }
   };
 

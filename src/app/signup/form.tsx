@@ -41,7 +41,7 @@ export default function RegisterForm() {
       });
     }
 
-    push("/tasks");
+    location.reload();
   };
 
   return (
