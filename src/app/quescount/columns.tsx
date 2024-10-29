@@ -21,7 +21,7 @@ import Link from "next/link";
 async function deleteQuestion(_id: string) {
   const { data } = await axios.post("/api/deleteQuestion", JSON.stringify(_id));
   if (data?.success) {
-    window.location.reload();
+    location.reload();
   }
 }
 

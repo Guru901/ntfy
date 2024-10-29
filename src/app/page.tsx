@@ -2,10 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
-import getTaskById from "@/helpers/getTaskById";
-import getLoggedInUser from "@/helpers/getLoggedInUser";
 import { Button } from "@/components/ui/button";
-import LoginFirst from "@/components/LoginFirst/page";
 import { columns } from "@/app/columns";
 import { Input } from "@/components/ui/input";
 import {
@@ -36,33 +33,31 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/userStore";
+import Login from "@/app/login/page";
+import { getTasks } from "@/data-access/tasks";
 
 export default function Home() {
   const [addTaskForm, setAddTaskForm] = useState<TaskForm>({} as TaskForm);
   const [tasks, setTasks] = useState([]);
-  const [taskToEdit, setTaskToEdit] = useState({});
   const [loading, setLoading] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState<User>({ _id: "" });
+  const [errors, setErrors] = useState<string[]>([]);
+
+  const { user } = useUserStore();
 
   const router = useRouter();
 
-  interface User {
-    _id: string;
-  }
-
   useEffect(() => {
-    getAllTasks();
-    setUser();
+    (async () => {
+      const { success, error, tasks } = await getTasks();
+      if (success && tasks) {
+        setTasks(tasks);
+      } else {
+        setErrors([...errors, error!]);
+      }
+    })();
   }, []);
 
-  async function setUser() {
-    setLoading(true);
-    const user = await getLoggedInUser();
-    setLoggedInUser(user);
-    setLoading(false);
-  }
-
-  
   function handleTaskAddChange(e: any) {
     setAddTaskForm({
       ...addTaskForm,
@@ -70,30 +65,18 @@ export default function Home() {
     });
   }
 
-  async function getAllTasks() {
-    setLoading(true);
-    const user = await getLoggedInUser();
-    setLoggedInUser(user);
-    const { data } = await axios.post("/api/getAllTasks", {
-      id: user._id,
-    });
-    setTasks(data.reverse());
-    setLoading(false);
-  }
-
   async function handleTaskAddSubmit() {
     const { data } = await axios.post("/api/addTask", {
       title: addTaskForm.title,
       subject: addTaskForm.subject,
       priority: addTaskForm.priority,
-      id: loggedInUser._id,
+      id: user?._id,
     });
     setTasks(data.tasks.reverse());
   }
 
-
   if (loading) return <Loader />;
-  if (!loggedInUser?._id) return <LoginFirst />;
+  if (!user?._id) return <Login />;
 
   return (
     <ContextMenu>
@@ -275,7 +258,7 @@ export default function Home() {
           </DialogContent>
         </Dialog>
         <Button
-          onClick={() => getAllTasks()}
+          onClick={() => location.reload()}
           variant="ghost"
           className="h-[1.8rem] w-full flex justify-start"
         >

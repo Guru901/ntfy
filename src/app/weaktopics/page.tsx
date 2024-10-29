@@ -13,25 +13,23 @@ import {
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import getLoggedInUser from "@/helpers/getLoggedInUser";
-import {DataTable} from "./data-table";
+import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import WeakTopic from "@/models/weakTopicModel";
 import { format } from "path";
 
 type WeakTopic = {
-	id: string;
-	name: string;
-	subject: string;
+  id: string;
+  name: string;
+  subject: string;
 };
 
 export default function QuesCount() {
-	const [mathWeakTopics, setMathWeakTopics] = useState<WeakTopic[]>([]);
-	const [physicsWeakTopics, setPhysicsWeakTopics] = useState<WeakTopic[]>(
-		[],
-	);
-	const [chemistryWeakTopics, setChemistryWeakTopics] = useState<WeakTopic[]>(
-		[],
-	);
+  const [mathWeakTopics, setMathWeakTopics] = useState<WeakTopic[]>([]);
+  const [physicsWeakTopics, setPhysicsWeakTopics] = useState<WeakTopic[]>([]);
+  const [chemistryWeakTopics, setChemistryWeakTopics] = useState<WeakTopic[]>(
+    []
+  );
 
   const [loggedInUser, setLoggedInUser] = useState({});
 
@@ -50,7 +48,7 @@ export default function QuesCount() {
         user: user,
       });
 
-     const formattedData = data.weakTopics.map((doc: any) => {
+      const formattedData = data.weakTopics.map((doc: any) => {
         const date = new Date(doc.createdAt);
         const options: Intl.DateTimeFormatOptions = {
           day: "numeric",
@@ -79,9 +77,9 @@ export default function QuesCount() {
         }
       });
 
-	    setMathWeakTopics(subjectA.reverse());
-	    setPhysicsWeakTopics(subjectB.reverse());
-	    setChemistryWeakTopics(subjectC.reverse());
+      setMathWeakTopics(subjectA.reverse());
+      setPhysicsWeakTopics(subjectB.reverse());
+      setChemistryWeakTopics(subjectC.reverse());
 
       setLoading(false);
     } catch (error) {
@@ -97,7 +95,7 @@ export default function QuesCount() {
         form,
         loggedInUser,
       });
-	getWeakTopics();
+      getWeakTopics();
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -106,7 +104,7 @@ export default function QuesCount() {
   }
 
   useEffect(() => {
-	  getWeakTopics();
+    getWeakTopics();
   }, []);
 
   return (
@@ -146,15 +144,15 @@ export default function QuesCount() {
             </Button>
           )}
         </div>
-      <div className="flex flex-col gap-2">
-        <h1>No of Questions solved in this week</h1>
-        <div className="flex gap-2">
-          <DataTable columns={columns} data={mathWeakTopics} />
-          <DataTable columns={columns} data={physicsWeakTopics} />
-          <DataTable columns={columns} data={chemistryWeakTopics} />
+        <div className="flex flex-col gap-2">
+          <h1>Enter the topics you are not good at</h1>
+          <div className="flex gap-2">
+            <DataTable columns={columns} data={mathWeakTopics} />
+            <DataTable columns={columns} data={physicsWeakTopics} />
+            <DataTable columns={columns} data={chemistryWeakTopics} />
+          </div>
         </div>
       </div>
-      </div>
-   </div>
+    </div>
   );
 }

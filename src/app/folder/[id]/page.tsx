@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LucideCross } from "lucide-react";
 import { Label } from "@/components/ui/label";
@@ -13,10 +13,13 @@ import { Input } from "@/components/ui/input";
 import { useEdgeStore } from "@/lib/edgestore";
 import { Progress } from "@/components/ui/progress";
 import Loader from "@/components/loader";
-function EnterDetails({ setUplading, pathName }: any) {
+import Image from "next/image";
+
+function EnterDetails({ pathName }: any) {
   const [file, setFile] = useState<File>();
   const { edgestore } = useEdgeStore();
   const [progress, setProgress] = useState(0);
+  const [uploading, setUploading] = useState(false);
 
   async function saveFileInDb(url: string) {
     const { data } = await axios.post("/api/saveFileInDb", {
@@ -33,11 +36,11 @@ function EnterDetails({ setUplading, pathName }: any) {
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle className="flex justify-between">
-            <div>Create Folder</div>
+            <div>Upload the question</div>
             <div className="flex rotate-45">
               <LucideCross
                 className="w-5 h-5 cursor-pointer"
-                onClick={() => setUplading(false)}
+                onClick={() => setUploading(false)}
               />
             </div>
           </CardTitle>
@@ -56,8 +59,10 @@ function EnterDetails({ setUplading, pathName }: any) {
             />
             <Progress value={progress} className={`h-2 w-[${progress}%]`} />
             <Button
+              disabled={uploading}
               onClick={async () => {
                 if (file) {
+                  setUploading(true);
                   const res = await edgestore.publicFiles.upload({
                     file,
                     onProgressChange: (progress) => {
@@ -65,12 +70,19 @@ function EnterDetails({ setUplading, pathName }: any) {
                       setProgress(progress);
                     },
                   });
-                  setUplading(false);
+                  setUploading(false);
                   saveFileInDb(res.url);
                 }
               }}
             >
-              Upload
+              {uploading ? (
+                <div className="flex items-center gap-2">
+                  Please Wait
+                  <Loader2 className="animate-spin w-3 h-3" />
+                </div>
+              ) : (
+                "Upload"
+              )}
             </Button>
           </div>
         </CardContent>
@@ -98,7 +110,13 @@ export default function Folder() {
   }, []);
 
   if (uploading)
-    return <EnterDetails pathName={pathName} setUplading={setUploading} />;
+    return (
+      <EnterDetails
+        pathName={pathName}
+        setUploading={setUploading}
+        uploading={uploading}
+      />
+    );
 
   if (loading) return <Loader />;
 

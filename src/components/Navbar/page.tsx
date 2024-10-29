@@ -2,25 +2,21 @@
 
 import Link from "next/link";
 import { Button } from "../ui/button";
-import getLoggedInUser from "@/helpers/getLoggedInUser";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/userStore";
 
 export default function Navbar() {
-  const router = useRouter();
-  interface User {
-    _id: string;
-  }
-
-  const [loggedInUser, setLoggedInUser] = useState<User>({ _id: "" });
-  async function setUser() {
-    const user = await getLoggedInUser();
-    setLoggedInUser(user);
-  }
+  const { setUser, user } = useUserStore();
 
   async function handleLogout() {
     const { data } = await axios.post("/api/logout");
+
+    setUser({
+      _id: "",
+      email: "",
+      name: "",
+    });
+
     if (data.success) {
       location.reload();
     }
@@ -33,25 +29,20 @@ export default function Navbar() {
     { name: "Weak Topics", href: "/weaktopics" },
   ];
 
-
-  useEffect(() => {
-    setUser();
-  }, []);
-
   return (
     <div className="flex justify-between px-4 p-2 items-center">
       <div className="flex gap-12">
         <h1 className="text-2xl pl-4 font-bold">NTFY</h1>
         <div className="flex gap-7 font-medium items-center">
-	  {links.map((link) => (
-	    <Link key={link.name} href={link.href}>
-		  {link.name}
-	    </Link>
-	  ))}
+          {links.map((link) => (
+            <Link key={link.name} href={link.href}>
+              {link.name}
+            </Link>
+          ))}
         </div>
       </div>
       <div className="flex">
-        {loggedInUser?._id ? (
+        {user?._id ? (
           <div className="flex gap-2">
             <Button variant="outline" onClick={handleLogout}>
               Logout

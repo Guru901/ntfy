@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export type TaskForm = {
   title: string;
   priority: string;
@@ -40,3 +42,23 @@ export type EditQuestionForm = {
   subject: string;
   questions: string;
 };
+export const SignupSchema = z.object({
+  email: z.string().email(),
+  username: z
+    .string()
+    .min(3, "Username cant be less than 3 characters")
+    .max(20, "Username cant be more than 20 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+export type TSignUpSchema = z.infer<typeof SignupSchema>;
+
+export const LoginSchema = z.object({
+  email: z.string().email(),
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .max(20, "Password can't be more than 20 characters"),
+});
+
+export type TLoginSchema = z.infer<typeof LoginSchema>;
