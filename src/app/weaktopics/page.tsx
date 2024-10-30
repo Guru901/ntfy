@@ -110,22 +110,22 @@ export default function QuesCount() {
 
   return (
     <div className="flex flex-col p-5 md:p-10 gap-20">
-      <div className="flex gap-5  flex-col ">
-        <div className="flex gap-3  flex-col justify-center">
+      <div className="flex gap-5 flex-col ">
+        <div className="flex gap-3 flex-col justify-center">
           <h1 className="text-2xl">Weak Topics</h1>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 w-full">
           <Input
             type="text"
             placeholder="Enter the topic"
-            className="w-[280px]"
+            className="md:w-[280px]"
             name="weakTopic"
             onChange={(e) =>
               setForm({ ...form, [e.target.name]: e.target.value })
             }
           />
           <Select onValueChange={(e) => setForm({ ...form, subject: e })}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="md:w-[180px]">
               <SelectValue placeholder="Subject" />
             </SelectTrigger>
             <SelectContent>
@@ -135,12 +135,12 @@ export default function QuesCount() {
             </SelectContent>
           </Select>
           {loading ? (
-            <Button disabled className="h-[38px]">
+            <Button disabled className="md:h-[38px]">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Please Wait
             </Button>
           ) : (
-            <Button className="h-[38px]" onClick={submitForm}>
+            <Button className="md:h-[38px]" onClick={submitForm}>
               Submit
             </Button>
           )}

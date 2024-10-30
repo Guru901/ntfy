@@ -121,7 +121,7 @@ export default function Folder() {
   if (loading) return <Loader />;
 
   return (
-    <div className="w-screen h-screen flex justify-start items-center flex-col px-12 py-6 gap-4">
+    <div className="w-screen h-screen flex justify-start items-center flex-col px-4 md:px-12 py-6 gap-4">
       <div className="w-full h-12 flex justify-between items-center">
         <Link href="/questions">
           <Button variant="outline" size="icon">
@@ -132,7 +132,7 @@ export default function Folder() {
           <Button onClick={() => setUploading(true)}>Upload</Button>
         </div>
       </div>
-      <div className="columns-2 gap-2 space-y-2">
+      <div className="md:columns-2 gap-2 space-y-2">
         {questions.map((x: string) => (
           <img src={x} className="w-full object-cover rounded-md" key={x} />
         ))}
