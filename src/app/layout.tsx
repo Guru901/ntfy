@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
-import NavbarWrapper from "@/components/NavbarWrapper";
+
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import SidebarWrapper from "@/components/SidebarWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,9 +28,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavbarWrapper />
-
-          <EdgeStoreProvider>{children}</EdgeStoreProvider>
+          <SidebarProvider>
+            <EdgeStoreProvider>
+              <SidebarWrapper>
+                <main className="w-screen">{children}</main>
+              </SidebarWrapper>
+            </EdgeStoreProvider>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

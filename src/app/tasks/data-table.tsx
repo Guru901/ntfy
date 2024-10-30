@@ -75,7 +75,7 @@ export default function DataTable<Task, TValue>({
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
-          className="w-[220px]"
+          className="md:w-[220px]"
         />
         <Select
           onValueChange={(e) =>
@@ -84,7 +84,7 @@ export default function DataTable<Task, TValue>({
               ?.setFilterValue(e === "all" ? undefined : e)
           }
         >
-          <SelectTrigger className="w-[130px]">
+          <SelectTrigger className="md:w-[130px]">
             <SelectValue placeholder="Subject" />
           </SelectTrigger>
           <SelectContent>
@@ -103,7 +103,7 @@ export default function DataTable<Task, TValue>({
               ?.setFilterValue(e === "all" ? undefined : e)
           }
         >
-          <SelectTrigger className="w-[130px]">
+          <SelectTrigger className="md:w-[130px]">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>

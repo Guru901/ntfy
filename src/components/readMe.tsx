@@ -17,7 +17,7 @@ export default function ReadMe({ setShowReadMe }: any) {
       <div className="w-max h-max flex justify-center items-center">
         <Image
           alt="Readme image"
-          className="rounded-lg"
+          className="rounded-lg w-screen"
           src={"/images/readme.png"}
           width={1000}
           height={1000}

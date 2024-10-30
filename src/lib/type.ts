@@ -62,3 +62,11 @@ export const LoginSchema = z.object({
 });
 
 export type TLoginSchema = z.infer<typeof LoginSchema>;
+
+export const AddTaskSchema = z.object({
+  title: z.string().max(20, "Title can't be more than 20 characters"),
+  subject: z.string(),
+  priority: z.string(),
+});
+
+export type TAddTaskSchema = z.infer<typeof AddTaskSchema>;

@@ -21,7 +21,7 @@ import { User } from "@/lib/type";
 export default function QuesCount() {
   const [mathQuesitions, setMathQuestions] = useState<QuestionsCount[]>([]);
   const [physicsQuestions, setPhysicsQuestions] = useState<QuestionsCount[]>(
-    [],
+    []
   );
   const [chemistryQuestions, setChemistryQuestions] = useState<
     QuestionsCount[]
@@ -106,7 +106,7 @@ export default function QuesCount() {
   }, []);
 
   return (
-    <div className="flex flex-col p-10 gap-20">
+    <div className="flex flex-col p-5 md:p-10 gap-20">
       <div className="flex gap-10  flex-col ">
         <div className="flex gap-3  flex-col justify-center">
           <h1 className="text-2xl">Daily Question Target : 90</h1>
@@ -118,14 +118,14 @@ export default function QuesCount() {
           <Input
             type="number"
             placeholder="Enter your answer"
-            className="w-[280px]"
+            className="md:w-[280px]"
             name="questions"
             onChange={(e) =>
               setForm({ ...form, [e.target.name]: e.target.value })
             }
           />
           <Select onValueChange={(e) => setForm({ ...form, subject: e })}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="md:w-[180px]">
               <SelectValue placeholder="Subject" />
             </SelectTrigger>
             <SelectContent>
@@ -135,12 +135,12 @@ export default function QuesCount() {
             </SelectContent>
           </Select>
           {loading ? (
-            <Button disabled className="h-[38px]">
+            <Button disabled className="md:h-[38px]">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Please Wait
             </Button>
           ) : (
-            <Button className="h-[38px]" onClick={submitForm}>
+            <Button className="md:h-[38px]" onClick={submitForm}>
               Submit
             </Button>
           )}
@@ -148,7 +148,7 @@ export default function QuesCount() {
       </div>
       <div className="flex flex-col gap-2">
         <h1>No of Questions solved in this week</h1>
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 md:flex-row">
           <DataTable columns={columns} data={mathQuesitions} />
           <DataTable columns={columns} data={physicsQuestions} />
           <DataTable columns={columns} data={chemistryQuestions} />

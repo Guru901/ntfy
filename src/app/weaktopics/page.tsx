@@ -109,7 +109,7 @@ export default function QuesCount() {
   }, []);
 
   return (
-    <div className="flex flex-col p-10 gap-20">
+    <div className="flex flex-col p-5 md:p-10 gap-20">
       <div className="flex gap-5  flex-col ">
         <div className="flex gap-3  flex-col justify-center">
           <h1 className="text-2xl">Weak Topics</h1>
@@ -147,7 +147,7 @@ export default function QuesCount() {
         </div>
         <div className="flex flex-col gap-2">
           <h1>Enter the topics you are not good at</h1>
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2 md:flex-row">
             <DataTable columns={columns} data={mathWeakTopics} />
             <DataTable columns={columns} data={physicsWeakTopics} />
             <DataTable columns={columns} data={chemistryWeakTopics} />
