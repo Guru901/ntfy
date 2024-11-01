@@ -1,13 +1,31 @@
-import axios from "axios";
+"use client";
 
-export default async function getLoggedInUser() {
-  try {
-    const { data } = await axios.post("/api/getLoggedInUser");
-    if (data.success === false) {
-      return true;
+import { useUserStore } from "@/store/userStore";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+export default function useGetUser() {
+  const { user, setUser } = useUserStore();
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (user._id.length === 0) {
+      const fetchUser = async () => {
+        try {
+          const { data } = await axios.post("/api/getLoggedInUser");
+          if (data.success === false) {
+            setError("error in getLoggedInUser");
+            return;
+          }
+          setUser(data.user);
+        } catch (error) {
+          setError("error in getLoggedInUser");
+        }
+      };
+
+      fetchUser();
     }
-    return data;
-  } catch (error) {
-    return { success: false, message: "error in getLoggedInUser" };
-  }
+  }, [user, setUser]);
+
+  return { user, error };
 }

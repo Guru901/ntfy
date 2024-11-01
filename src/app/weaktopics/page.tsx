@@ -12,12 +12,11 @@ import {
 } from "@/components/ui/select";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
-import getLoggedInUser from "@/helpers/getLoggedInUser";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import WeakTopic from "@/models/weakTopicModel";
-import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
+import useGetUser from "@/helpers/getLoggedInUser";
 
 type WeakTopic = {
   id: string;
@@ -32,6 +31,8 @@ export default function QuesCount() {
     []
   );
 
+  const { error, user } = useGetUser();
+
   const [loggedInUser, setLoggedInUser] = useState({});
 
   const [form, setForm] = useState({
@@ -43,7 +44,6 @@ export default function QuesCount() {
   async function getWeakTopics() {
     try {
       setLoading(true);
-      const user = await getLoggedInUser();
       setLoggedInUser(user);
       const { data } = await axios.post("/api/getWeakTopics", {
         user: user,
@@ -107,6 +107,8 @@ export default function QuesCount() {
   useEffect(() => {
     getWeakTopics();
   }, []);
+
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="flex flex-col p-5 md:p-10 gap-20">

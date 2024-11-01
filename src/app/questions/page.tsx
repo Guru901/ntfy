@@ -19,11 +19,11 @@ import {
 } from "@/components/ui/card";
 import { LucideCross, Plus } from "lucide-react";
 import axios from "axios";
-import getLoggedInUser from "@/helpers/getLoggedInUser";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { useRouter } from "next/navigation";
 import ReadMe from "@/components/readMe";
+import useGetUser from "@/helpers/getLoggedInUser";
 
 interface EnterDetailsProps {
   setEnterDetailsTrigger: any;
@@ -86,6 +86,8 @@ export default function Questions() {
   const [showReadMe, setShowReadMe] = useState(false);
   const router = useRouter();
 
+  const { error, user } = useGetUser();
+
   type Folders = {
     _id: string;
     name: string;
@@ -93,7 +95,6 @@ export default function Questions() {
 
   async function createFolder() {
     setLoading(true);
-    const user = await getLoggedInUser();
     const { data } = await axios.post("/api/createFolder", {
       name,
       id: user._id,
@@ -141,6 +142,8 @@ export default function Questions() {
   }
 
   if (showReadMe) return <ReadMe setShowReadMe={setShowReadMe} />;
+
+  if (error) return <div>Error: {error}</div>;
 
   if (enterDetailsTrigger)
     return (

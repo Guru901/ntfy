@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     const user = await User.findById(userId).select("-password");
 
     if (user) {
-      return NextResponse.json(user);
+      return NextResponse.json({ success: true, user });
     }
 
     return NextResponse.json({ success: false });

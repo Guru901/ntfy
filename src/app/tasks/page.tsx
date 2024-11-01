@@ -32,9 +32,9 @@ import {
   ContextMenuContent,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
-import { useUserStore } from "@/store/userStore";
 import { getTasks } from "@/data-access/tasks";
 import { useRouter } from "next/navigation";
+import useGetUser from "@/helpers/getLoggedInUser";
 
 export default function Home() {
   const [addTaskForm, setAddTaskForm] = useState<TaskForm>({} as TaskForm);
@@ -42,7 +42,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [getTaskError, setGetTaskError] = useState<string>("");
 
-  const { user } = useUserStore();
+  const { error, user } = useGetUser();
 
   const { back } = useRouter();
 
@@ -80,6 +80,8 @@ export default function Home() {
   }
 
   if (loading) return <Loader />;
+
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <ContextMenu>

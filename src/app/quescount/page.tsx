@@ -15,8 +15,8 @@ import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { QuestionsCount } from "@/lib/type";
 import { Loader2 } from "lucide-react";
-import getLoggedInUser from "@/helpers/getLoggedInUser";
 import { User } from "@/lib/type";
+import useGetUser from "@/helpers/getLoggedInUser";
 
 export default function QuesCount() {
   const [mathQuesitions, setMathQuestions] = useState<QuestionsCount[]>([]);
@@ -35,10 +35,11 @@ export default function QuesCount() {
   });
   const [loading, setLoading] = useState(false);
 
+  const { error, user } = useGetUser();
+
   async function getQuestionsSolved() {
     try {
       setLoading(true);
-      const user = await getLoggedInUser();
       setLoggedInUser(user);
       const { data } = await axios.post("/api/getQuesCount", {
         user: user,
@@ -104,6 +105,8 @@ export default function QuesCount() {
   useEffect(() => {
     getQuestionsSolved();
   }, []);
+
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="flex flex-col p-5 md:p-10 gap-20">

@@ -4,9 +4,14 @@ import { useUserStore } from "@/store/userStore";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import axios from "axios";
+import useGetUser from "@/helpers/getLoggedInUser";
 
 export function HeroButtons() {
-  const { user } = useUserStore();
+  const { error, user } = useGetUser();
+
+  console.log(user);
+
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <>
@@ -33,7 +38,9 @@ export function HeroButtons() {
 }
 
 export function NavButtons() {
-  const { user } = useUserStore();
+  const { error, user } = useGetUser();
+
+  if (error) return <div>Error: {error}</div>;
 
   return user._id.length > 0 ? (
     <div>
@@ -75,7 +82,9 @@ export function FooterButtons() {
     },
   ];
 
-  const { user } = useUserStore();
+  const { error, user } = useGetUser();
+
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="flex gap-3 underline absolute right-10 bottom-8">
