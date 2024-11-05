@@ -9,7 +9,9 @@ import useGetUser from "@/hooks/use-get-user";
 export function HeroButtons() {
   const { error, user } = useGetUser();
 
-  if (error !== "User not logged in") return <div>Error: {error}</div>;
+  if (error.length !== 0) {
+    if (error !== "User not logged in") return <div>Error: {error}</div>;
+  }
 
   return (
     <>
@@ -38,7 +40,9 @@ export function HeroButtons() {
 export function NavButtons() {
   const { error, user } = useGetUser();
 
-  if (error !== "User not logged in") return <div>Error: {error}</div>;
+  if (error.length !== 0) {
+    if (error !== "User not logged in") return <div>Error: {error}</div>;
+  }
 
   return user._id.length > 0 ? (
     <div>
@@ -82,7 +86,9 @@ export function FooterButtons() {
 
   const { error, user } = useGetUser();
 
-  if (error !== "User not logged in") return <div>Error: {error}</div>;
+  if (error.length !== 0) {
+    if (error !== "User not logged in") return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="flex gap-3 underline absolute right-10 bottom-8">

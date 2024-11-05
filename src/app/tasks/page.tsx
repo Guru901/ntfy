@@ -81,7 +81,9 @@ export default function Home() {
 
   if (loading) return <Loader />;
 
-  if (error !== "User not logged in") return <div>Error: {error}</div>;
+  if (error.length !== 0) {
+    if (error !== "User not logged in") return <div>Error: {error}</div>;
+  }
 
   return (
     <ContextMenu>

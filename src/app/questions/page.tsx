@@ -143,7 +143,9 @@ export default function Questions() {
 
   if (showReadMe) return <ReadMe setShowReadMe={setShowReadMe} />;
 
-  if (error !== "User not logged in") return <div>Error: {error}</div>;
+  if (error.length !== 0) {
+    if (error !== "User not logged in") return <div>Error: {error}</div>;
+  }
 
   if (enterDetailsTrigger)
     return (

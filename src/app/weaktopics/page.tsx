@@ -107,7 +107,9 @@ export default function QuesCount() {
     getWeakTopics();
   }, []);
 
-  if (error !== "User not logged in") return <div>Error: {error}</div>;
+  if (error.length !== 0) {
+    if (error !== "User not logged in") return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="flex flex-col p-5 md:p-10 gap-20">
