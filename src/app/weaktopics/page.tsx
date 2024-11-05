@@ -15,8 +15,7 @@ import { Loader2 } from "lucide-react";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import WeakTopic from "@/models/weakTopicModel";
-import { useRouter } from "next/navigation";
-import useGetUser from "@/helpers/getLoggedInUser";
+import useGetUser from "@/hooks/use-get-user";
 
 type WeakTopic = {
   id: string;
@@ -108,7 +107,7 @@ export default function QuesCount() {
     getWeakTopics();
   }, []);
 
-  if (error) return <div>Error: {error}</div>;
+  if (error !== "User not logged in") return <div>Error: {error}</div>;
 
   return (
     <div className="flex flex-col p-5 md:p-10 gap-20">

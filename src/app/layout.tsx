@@ -28,7 +28,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
+          <SidebarProvider defaultOpen={false}>
             <EdgeStoreProvider>
               <SidebarWrapper>
                 <main className="w-screen">{children}</main>

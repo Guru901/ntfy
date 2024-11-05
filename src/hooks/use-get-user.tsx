@@ -14,7 +14,7 @@ export default function useGetUser() {
         try {
           const { data } = await axios.post("/api/getLoggedInUser");
           if (data.success === false) {
-            setError("error in getLoggedInUser");
+            setError("User not logged in");
             return;
           }
           setUser(data.user);

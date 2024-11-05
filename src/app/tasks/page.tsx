@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/context-menu";
 import { getTasks } from "@/data-access/tasks";
 import { useRouter } from "next/navigation";
-import useGetUser from "@/helpers/getLoggedInUser";
+import useGetUser from "@/hooks/use-get-user";
 
 export default function Home() {
   const [addTaskForm, setAddTaskForm] = useState<TaskForm>({} as TaskForm);
@@ -81,7 +81,7 @@ export default function Home() {
 
   if (loading) return <Loader />;
 
-  if (error) return <div>Error: {error}</div>;
+  if (error !== "User not logged in") return <div>Error: {error}</div>;
 
   return (
     <ContextMenu>

@@ -15,8 +15,7 @@ import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { QuestionsCount } from "@/lib/type";
 import { Loader2 } from "lucide-react";
-import { User } from "@/lib/type";
-import useGetUser from "@/helpers/getLoggedInUser";
+import useGetUser from "@/hooks/use-get-user";
 
 export default function QuesCount() {
   const [mathQuesitions, setMathQuestions] = useState<QuestionsCount[]>([]);
@@ -106,7 +105,7 @@ export default function QuesCount() {
     getQuestionsSolved();
   }, []);
 
-  if (error) return <div>Error: {error}</div>;
+  if (error !== "User not logged in") return <div>Error: {error}</div>;
 
   return (
     <div className="flex flex-col p-5 md:p-10 gap-20">

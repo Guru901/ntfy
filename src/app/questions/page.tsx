@@ -23,7 +23,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { useRouter } from "next/navigation";
 import ReadMe from "@/components/readMe";
-import useGetUser from "@/helpers/getLoggedInUser";
+import useGetUser from "@/hooks/use-get-user";
 
 interface EnterDetailsProps {
   setEnterDetailsTrigger: any;
@@ -143,7 +143,7 @@ export default function Questions() {
 
   if (showReadMe) return <ReadMe setShowReadMe={setShowReadMe} />;
 
-  if (error) return <div>Error: {error}</div>;
+  if (error !== "User not logged in") return <div>Error: {error}</div>;
 
   if (enterDetailsTrigger)
     return (
