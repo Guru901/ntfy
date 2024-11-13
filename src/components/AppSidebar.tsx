@@ -89,7 +89,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarFooter>
+        <SidebarFooter className="pb-4">
           <LogoutButton />
         </SidebarFooter>
       </SidebarContent>

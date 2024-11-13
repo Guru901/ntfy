@@ -18,7 +18,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, msg: "User doesn't exists" });
     }
 
-    if (user.password === password) {
+    const isPasswordCorrect = await user.isPasswordCorrect(password);
+
+
+    if (isPasswordCorrect) {
       const tokenData = {
         id: user._id,
       };

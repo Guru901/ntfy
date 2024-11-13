@@ -10,11 +10,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import LoginUser from "@/data-access/login";
 import { useUserStore } from "@/store/userStore";
 import { LoginSchema, TLoginSchema } from "@/lib/type";
-import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const { setUser } = useUserStore();
-  const { push } = useRouter();
 
   const {
     register,
