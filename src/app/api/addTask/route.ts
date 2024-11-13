@@ -22,8 +22,6 @@ export async function POST(request: Request) {
 
     const { title, subject, priority, id } = req;
 
-    console.log(req);
-
     const newTask = await Task.create({
       title: title,
       subject: subject,
