@@ -1,8 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Task } from "@/lib/type";
-import { ArrowUpDown, Loader2, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,

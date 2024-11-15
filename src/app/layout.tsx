@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import SidebarWrapper from "@/components/SidebarWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
