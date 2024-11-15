@@ -39,11 +39,12 @@ type TaskFormValues = z.infer<typeof addTaskFormSchema>;
 export function AddTaskDialog() {
   const { user } = useGetUser();
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Local state to control dialog visibility
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { isLoading, errors },
+    formState: { errors },
     control,
   } = useForm<TaskFormValues>({
     resolver: zodResolver(addTaskFormSchema),
@@ -51,6 +52,7 @@ export function AddTaskDialog() {
 
   async function handleTaskAddSubmit(values: TaskFormValues) {
     try {
+      setIsLoading(true);
       await axios.post("/api/addTask", {
         title: values.title,
         subject: values.subject,
