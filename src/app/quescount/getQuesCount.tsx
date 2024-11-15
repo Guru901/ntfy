@@ -28,7 +28,6 @@ export function GetQuesCount() {
           user: user,
         });
 
-        // Define arrays to hold questions for each subject
         const subjectA: QuestionsCount[] = [];
         const subjectB: QuestionsCount[] = [];
         const subjectC: QuestionsCount[] = [];
@@ -48,7 +47,6 @@ export function GetQuesCount() {
           };
         });
 
-        // Sort the formatted data into the respective arrays
         formattedData.forEach((doc: any) => {
           if (doc.subject === "Maths") {
             subjectA.push(doc);

@@ -16,14 +16,6 @@ export type Task = {
   subject: string;
 };
 
-export type EditFormTask = {
-  _id: string;
-  title: string;
-  status: string;
-  priority: string;
-  subject: string;
-};
-
 export type User = {
   name: string;
   email: string;
@@ -78,3 +70,19 @@ export const WeakTopicsFormSchema = z.object({
 });
 
 export type TWeakTopicFormValues = z.infer<typeof WeakTopicsFormSchema>;
+
+export const AddQuesCountSchema = z.object({
+  questions: z.string().min(1),
+  subject: z.string().min(1),
+});
+
+export type TQuesCountFormValues = z.infer<typeof AddQuesCountSchema>;
+
+export const EditFormTaskSchema = z.object({
+  title: z.string().optional(),
+  status: z.string().optional(),
+  priority: z.string().optional(),
+  subject: z.string().optional(),
+});
+
+export type TEditFormTaskSchema = z.infer<typeof EditFormTaskSchema>;

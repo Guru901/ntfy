@@ -67,8 +67,6 @@ function EnterDetails({ pathName }: any) {
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <Label htmlFor="question">Upload</Label>
-
-            {/* Show image preview before uploading */}
             {preview && (
               <Image
                 src={preview}
@@ -77,7 +75,6 @@ function EnterDetails({ pathName }: any) {
                 height={300}
               />
             )}
-
             <Input
               type="file"
               name="question"
@@ -86,9 +83,7 @@ function EnterDetails({ pathName }: any) {
               onChange={handleFileChange}
               accept="image/*"
             />
-
             <Progress value={progress} className={`h-2 w-[${progress}%]`} />
-
             <Button disabled={uploading} onClick={handleUpload}>
               {uploading ? (
                 <div className="flex items-center gap-2">

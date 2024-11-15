@@ -10,18 +10,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useGetUser from "@/hooks/use-get-user";
+import { AddQuesCountSchema, TQuesCountFormValues } from "@/lib/type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-
-const AddQuesCountSchema = z.object({
-  questions: z.string().min(1),
-  subject: z.string().min(1),
-});
-
-type TQuesCountFormValues = z.infer<typeof AddQuesCountSchema>;
 
 export function AddQuesCount() {
   const {
