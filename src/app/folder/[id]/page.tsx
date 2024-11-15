@@ -15,6 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import Loader from "@/components/loader";
 import Image from "next/image";
 import { saveFileInDb } from "@/data-access/saveFileInDb";
+import { Metadata } from "next";
 
 function EnterDetails({ pathName }: any) {
   const [file, setFile] = useState<File | null>(null);

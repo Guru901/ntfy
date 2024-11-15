@@ -10,10 +10,11 @@ import { useEffect, useState } from "react";
 import getqustionById from "@/helpers/getQuestionById";
 import axios from "axios";
 import { EditQuestionForm } from "@/lib/type";
+import { Metadata } from "next";
 
 export default function TaskId() {
   const [editQuestion, setEditQuestion] = useState<EditQuestionForm>(
-    {} as EditQuestionForm,
+    {} as EditQuestionForm
   );
   const [loading, setLoading] = useState(true);
   const [btnloading, setBtnLoading] = useState(false);

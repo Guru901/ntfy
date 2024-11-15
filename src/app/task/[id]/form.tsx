@@ -17,14 +17,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import getTaskById from "@/helpers/getTaskById";
 
-export default function TaskEditForm({
-  editTask,
-}: {
-  editTask: TEditFormTaskSchema;
-}) {
+export default function TaskEditForm() {
+  const [editTask, setEditTask] = useState({
+    title: "",
+    priority: "",
+    subject: "",
+    status: "",
+  });
+  const [loading, setLoading] = useState(true);
+
   let pathName = usePathname();
   pathName = pathName.split("/")[2];
+
+  const router = useRouter();
+
+  useEffect(() => {
+    getTask();
+  }, []);
 
   const {
     register,
@@ -35,8 +47,6 @@ export default function TaskEditForm({
     resolver: zodResolver(EditFormTaskSchema),
     defaultValues: editTask,
   });
-
-  const router = useRouter();
 
   async function submitEditedTask(values: TEditFormTaskSchema) {
     try {
@@ -50,6 +60,17 @@ export default function TaskEditForm({
       if (data?.success) {
         router.push("/tasks");
       }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function getTask() {
+    try {
+      setLoading(true);
+      const task = await getTaskById(pathName);
+      setEditTask(task);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }

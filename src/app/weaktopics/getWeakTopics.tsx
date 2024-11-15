@@ -5,6 +5,7 @@ import axios from "axios";
 import { DataTable } from "./data-table";
 import { useEffect, useState } from "react";
 import { columns } from "./columns";
+
 type WeakTopic = {
   id: string;
   name: string;
