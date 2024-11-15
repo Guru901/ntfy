@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -37,6 +38,7 @@ type TaskFormValues = z.infer<typeof addTaskFormSchema>;
 
 export function AddTaskDialog() {
   const { user } = useGetUser();
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Local state to control dialog visibility
 
   const {
     register,
@@ -55,14 +57,19 @@ export function AddTaskDialog() {
         priority: values.priority,
         id: user?._id,
       });
+      setIsDialogOpen(false);
+      location.reload();
     } catch (error) {
       console.error(error);
     }
   }
+
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant={"secondary"}>Add Task</Button>
+        <Button variant={"secondary"} onClick={() => setIsDialogOpen(true)}>
+          Add Task
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -95,12 +102,12 @@ export function AddTaskDialog() {
               </Label>
               <Controller
                 name="priority"
-                control={control} // Link Controller to the form control
+                control={control}
                 render={({ field }) => (
                   <Select
-                    value={field.value} // Explicitly bind value from Controller
-                    onValueChange={(value) => field.onChange(value)} // Explicitly handle onChange to update the form state
-                    name="priority" // Add name attribute for formData
+                    value={field.value}
+                    onValueChange={(value) => field.onChange(value)}
+                    name="priority"
                     defaultValue=""
                   >
                     <SelectTrigger className="w-[180px]">
@@ -129,11 +136,11 @@ export function AddTaskDialog() {
               </Label>
               <Controller
                 name="subject"
-                control={control} // Link Controller to the form control
+                control={control}
                 render={({ field }) => (
                   <Select
-                    value={field.value} // Explicitly bind value from Controller
-                    onValueChange={(value) => field.onChange(value)} // Explicitly handle onChange to update the form state
+                    value={field.value}
+                    onValueChange={(value) => field.onChange(value)}
                   >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Subject" />
@@ -152,10 +159,7 @@ export function AddTaskDialog() {
                 <p className="text-red-500 text-xs">{errors.subject.message}</p>
               )}
             </div>
-          </div>
-
-          <DialogFooter>
-            <DialogClose asChild>
+            <DialogFooter>
               {isLoading ? (
                 <Button type="submit" disabled className="flex gap-2">
                   <Loader2 className="animate-spin h-4 w-4" /> Adding
@@ -163,13 +167,13 @@ export function AddTaskDialog() {
               ) : (
                 <Button
                   type="submit"
-                  onClick={handleSubmit(handleTaskAddSubmit)}
+                  onClick={handleSubmit(handleTaskAddSubmit)} // Submit the form
                 >
                   Add Task
                 </Button>
               )}
-            </DialogClose>
-          </DialogFooter>
+            </DialogFooter>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

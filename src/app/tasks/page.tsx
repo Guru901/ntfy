@@ -6,21 +6,27 @@ import DataTable from "./dataTable";
 import { getTasks } from "@/data-access/tasks";
 import useGetUser from "@/hooks/use-get-user";
 import { AddTaskDialog } from "./addTaskDialog";
+import { Loader2 } from "lucide-react";
 
 export default function Home() {
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [getTaskError, setGetTaskError] = useState<string>("");
 
   const { error, user } = useGetUser();
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const { success, error, tasks } = await getTasks(user?._id || "");
       if (success && tasks) {
-        setTasks(tasks);
+        setTasks(tasks.reverse());
+        setLoading(false);
       } else {
         setGetTaskError(error!);
+        setLoading(false);
       }
+      setLoading(false);
     })();
   }, [user?._id]);
 
@@ -41,7 +47,13 @@ export default function Home() {
           <div className="w-full flex items-center justify-end gap-2">
             <AddTaskDialog />
           </div>
-          <DataTable data={tasks} columns={columns} />
+          {loading ? (
+            <div className="w-full flex items-center justify-center">
+              <Loader2 className="animate-spin h-5 w-5 text-gray-500" />
+            </div>
+          ) : (
+            <DataTable data={tasks} columns={columns} />
+          )}
         </div>
       </div>
     </div>
