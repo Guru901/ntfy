@@ -7,11 +7,6 @@ export async function POST(request: NextRequest) {
   let token = request.cookies.get("token")?.value || "";
 
   if (!token) {
-    const req = await request.json()
-    token = req.token;
-  }
-
-  if (!token) {
     return NextResponse.json({ success: false });
   }
 
@@ -25,7 +20,6 @@ export async function POST(request: NextRequest) {
       id: string;
     };
     const userId = decodedToken.id;
-
 
     const user = await User.findById(userId).select("-password");
 

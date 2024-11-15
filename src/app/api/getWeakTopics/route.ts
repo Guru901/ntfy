@@ -5,7 +5,6 @@ export async function POST(request: Request) {
   try {
     const req = await request.json();
     const { user } = req;
-    console.log("user", user);
 
     if (!user) {
       return NextResponse.json({ success: false, message: "User not found" });

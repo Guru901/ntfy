@@ -55,8 +55,6 @@ export function AddTaskDialog() {
         priority: values.priority,
         id: user?._id,
       });
-
-      location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -87,9 +85,7 @@ export function AddTaskDialog() {
                 })}
               />
               {errors.title && (
-                <p className="text-red-500 text-xs">
-                  {errors.title.message}
-                </p>
+                <p className="text-red-500 text-xs">{errors.title.message}</p>
               )}
             </div>
 
@@ -153,9 +149,7 @@ export function AddTaskDialog() {
                 )}
               />
               {errors.subject && (
-                <p className="text-red-500 text-xs">
-                  {errors.subject.message}
-                </p>
+                <p className="text-red-500 text-xs">{errors.subject.message}</p>
               )}
             </div>
           </div>
@@ -167,7 +161,10 @@ export function AddTaskDialog() {
                   <Loader2 className="animate-spin h-4 w-4" /> Adding
                 </Button>
               ) : (
-                <Button type="submit" onClick={handleSubmit(handleTaskAddSubmit)}>
+                <Button
+                  type="submit"
+                  onClick={handleSubmit(handleTaskAddSubmit)}
+                >
                   Add Task
                 </Button>
               )}

@@ -15,11 +15,10 @@ import useGetUser from "@/hooks/use-get-user";
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form"; // Import Controller
 import { zodResolver } from "@hookform/resolvers/zod";
-import { revalidatePath } from "next/cache";
 
 const weakTopicsFormSchema = z.object({
-  weakTopic: z.string().min(3, "Weak topic can't be less than 3 characters"),
-  subject: z.string().min(3, "Subject can't be less than 3 characters"),
+  weakTopic: z.string().min(3, "Weak Topic Should be atleast 3 chars"),
+  subject: z.enum(["Maths", "Physics", "Chemistry"]),
 });
 
 type WeakTopicFormValues = z.infer<typeof weakTopicsFormSchema>;
@@ -42,6 +41,7 @@ export default function Form() {
         form: data,
         user,
       });
+
       location.reload();
     } catch (error) {
       console.error(error);
@@ -56,7 +56,7 @@ export default function Form() {
           type="text"
           placeholder="Enter the topic"
           className="md:w-[280px]"
-          name="topic"
+          name="weakTopic"
         />
         {errors.weakTopic && (
           <span className="text-red-500 text-xs">
