@@ -49,7 +49,7 @@ export default function Home() {
           </div>
           {loading ? (
             <div className="w-full flex items-center justify-center">
-              <Loader2 className="animate-spin h-5 w-5 text-gray-500" />
+              <Loader2 />
             </div>
           ) : (
             <DataTable data={tasks} columns={columns} />

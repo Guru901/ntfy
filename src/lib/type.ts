@@ -42,6 +42,7 @@ export type EditQuestionForm = {
   subject: string;
   questions: string;
 };
+
 export const SignupSchema = z.object({
   email: z.string().email(),
   username: z
@@ -70,3 +71,10 @@ export const AddTaskSchema = z.object({
 });
 
 export type TAddTaskSchema = z.infer<typeof AddTaskSchema>;
+
+export const WeakTopicsFormSchema = z.object({
+  weakTopic: z.string().min(3, "Weak Topic Should be atleast 3 chars"),
+  subject: z.enum(["Maths", "Physics", "Chemistry"]),
+});
+
+export type TWeakTopicFormValues = z.infer<typeof WeakTopicsFormSchema>;

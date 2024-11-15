@@ -15,13 +15,7 @@ import useGetUser from "@/hooks/use-get-user";
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form"; // Import Controller
 import { zodResolver } from "@hookform/resolvers/zod";
-
-const weakTopicsFormSchema = z.object({
-  weakTopic: z.string().min(3, "Weak Topic Should be atleast 3 chars"),
-  subject: z.enum(["Maths", "Physics", "Chemistry"]),
-});
-
-type WeakTopicFormValues = z.infer<typeof weakTopicsFormSchema>;
+import { TWeakTopicFormValues, WeakTopicsFormSchema } from "@/lib/type";
 
 export default function Form() {
   const { user } = useGetUser();
@@ -31,11 +25,11 @@ export default function Form() {
     handleSubmit,
     formState: { errors, isSubmitting },
     control,
-  } = useForm<WeakTopicFormValues>({
-    resolver: zodResolver(weakTopicsFormSchema),
+  } = useForm<TWeakTopicFormValues>({
+    resolver: zodResolver(WeakTopicsFormSchema),
   });
 
-  const submitForm = async (data: WeakTopicFormValues) => {
+  const submitForm = async (data: TWeakTopicFormValues) => {
     try {
       await axios.post("/api/addWeakTopic", {
         form: data,

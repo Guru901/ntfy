@@ -14,22 +14,41 @@ import { useEdgeStore } from "@/lib/edgestore";
 import { Progress } from "@/components/ui/progress";
 import Loader from "@/components/loader";
 import Image from "next/image";
+import { saveFileInDb } from "@/data-access/saveFileInDb";
 
 function EnterDetails({ pathName }: any) {
-  const [file, setFile] = useState<File>();
-  const { edgestore } = useEdgeStore();
+  const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
+  const [preview, setPreview] = useState<string>("");
+  const { edgestore } = useEdgeStore(); // Assuming this is a custom hook
 
-  async function saveFileInDb(url: string) {
-    const { data } = await axios.post("/api/saveFileInDb", {
-      url,
-      pathName,
-    });
-    if (data.success) {
-      location.reload();
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+      reader.readAsDataURL(selectedFile);
     }
-  }
+  };
+
+  const handleUpload = async () => {
+    if (file) {
+      setUploading(true);
+      const res = await edgestore.publicFiles.upload({
+        file,
+        onProgressChange: (progress) => {
+          setProgress(progress);
+        },
+      });
+      setUploading(false);
+      saveFileInDb(res.url, pathName);
+    }
+  };
 
   return (
     <div className="h-screen w-screen flex justify-center items-center">
@@ -48,33 +67,29 @@ function EnterDetails({ pathName }: any) {
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <Label htmlFor="question">Upload</Label>
+
+            {/* Show image preview before uploading */}
+            {preview && (
+              <Image
+                src={preview}
+                alt="Question Preview"
+                width={400}
+                height={300}
+              />
+            )}
+
             <Input
               type="file"
               name="question"
               id="question"
               required
-              onChange={(e) => {
-                setFile(e.target.files?.[0]);
-              }}
+              onChange={handleFileChange}
+              accept="image/*"
             />
+
             <Progress value={progress} className={`h-2 w-[${progress}%]`} />
-            <Button
-              disabled={uploading}
-              onClick={async () => {
-                if (file) {
-                  setUploading(true);
-                  const res = await edgestore.publicFiles.upload({
-                    file,
-                    onProgressChange: (progress) => {
-                      // you can use this to show a progress bar
-                      setProgress(progress);
-                    },
-                  });
-                  setUploading(false);
-                  saveFileInDb(res.url);
-                }
-              }}
-            >
+
+            <Button disabled={uploading} onClick={handleUpload}>
               {uploading ? (
                 <div className="flex items-center gap-2">
                   Please Wait
@@ -107,7 +122,7 @@ export default function Folder() {
 
   useEffect(() => {
     getFiles();
-  }, []);
+  }, [pathName]);
 
   if (uploading)
     return (
@@ -134,7 +149,14 @@ export default function Folder() {
       </div>
       <div className="md:columns-2 gap-2 space-y-2">
         {questions.map((x: string) => (
-          <img src={x} className="w-full object-cover rounded-md" key={x} />
+          <Image
+            width={400}
+            height={300}
+            src={x}
+            className="w-full object-cover rounded-md"
+            key={x}
+            alt="Question"
+          />
         ))}
       </div>
     </div>

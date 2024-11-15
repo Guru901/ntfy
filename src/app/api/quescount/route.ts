@@ -1,11 +1,14 @@
+import connectToDb from "@/dbconfig/connectToDb";
 import Questions from "@/models/questModel";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
+    await connectToDb();
     const req = await request.json();
-    const { subject, questions } = req.form;
-    const { _id } = req.loggedInUser;
+    const { subject, questions } = req.value;
+    const { _id } = req.user;
+
     const newQuestion = {
       subject: subject,
       questions: questions,

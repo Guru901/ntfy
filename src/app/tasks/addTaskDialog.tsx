@@ -20,39 +20,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { priorityList, subjectList } from "@/lib/contants";
-import { FormEvent } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import useGetUser from "@/hooks/use-get-user";
 import { Loader2 } from "lucide-react";
-
-const addTaskFormSchema = z.object({
-  title: z.string().min(1),
-  subject: z.string().min(1),
-  priority: z.string().min(1),
-});
-
-type TaskFormValues = z.infer<typeof addTaskFormSchema>;
-
+import { AddTaskSchema, TAddTaskSchema } from "@/lib/type";
 export function AddTaskDialog() {
   const { user } = useGetUser();
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Local state to control dialog visibility
-  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     control,
-  } = useForm<TaskFormValues>({
-    resolver: zodResolver(addTaskFormSchema),
+  } = useForm<TAddTaskSchema>({
+    resolver: zodResolver(AddTaskSchema),
   });
 
-  async function handleTaskAddSubmit(values: TaskFormValues) {
+  async function handleTaskAddSubmit(values: TAddTaskSchema) {
     try {
-      setIsLoading(true);
       await axios.post("/api/addTask", {
         title: values.title,
         subject: values.subject,
@@ -162,7 +150,7 @@ export function AddTaskDialog() {
               )}
             </div>
             <DialogFooter>
-              {isLoading ? (
+              {isSubmitting ? (
                 <Button type="submit" disabled className="flex gap-2">
                   <Loader2 className="animate-spin h-4 w-4" /> Adding
                 </Button>
