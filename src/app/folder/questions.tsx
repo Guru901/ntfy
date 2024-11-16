@@ -2,7 +2,7 @@ import React from "react";
 import { getFiles } from "./getFiles";
 import Image from "next/image";
 
-export default async function Questions({ searchParams }) {
+export default async function Questions({ searchParams }: { searchParams: any }) {
 
   const folderId = await searchParams.id
 
