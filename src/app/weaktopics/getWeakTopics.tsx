@@ -25,7 +25,7 @@ export function GetWeakTopics() {
     (async () => {
       try {
         const { data } = await axios.post(
-          "http://localhost:3000/api/getWeakTopics",
+          "https://ntfy-blush.vercel.app/api/getWeakTopics",
           {
             user: user,
           }
