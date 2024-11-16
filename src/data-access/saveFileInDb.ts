@@ -8,6 +8,8 @@ export async function saveFileInDb(url: string, pathName: string) {
     });
     if (data.success) {
       location.reload();
+    } else {
+      console.log(data)
     }
   } catch (error) {
     console.error(error);

@@ -63,7 +63,7 @@ export default function Questions() {
 
   useEffect(() => {
     if (doubleClickedFolder) {
-      router.push(`/folder/${doubleClickedFolder}`);
+      router.push(`/folder?id=${doubleClickedFolder}`);
     }
   }, [doubleClickedFolder, router]);
 
