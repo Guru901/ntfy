@@ -12,7 +12,7 @@ export default function useGetUser() {
     if (user._id.length === 0) {
       const fetchUser = async () => {
         try {
-          const { data } = await axios.post("/api/getLoggedInUser");
+          const { data } = await axios.get("/api/getLoggedInUser");
           if (data.success === false) {
             setError("User not logged in");
             return;

@@ -45,7 +45,7 @@ export default function Home() {
       <Card className="w-screen min-h-[40vh] flex justify-start items-center relative">
         <div className="flex flex-col gap-2 text-center justify-start px-20">
           <h1 className="text-2xl font-bold">NTFY</h1>
-          <Link href={"https://gurvinder.vercel.app"}>
+          <Link target={"_blank"} href={"https://gurvinder.vercel.app"}>
             <p className="text-md font-light">Created By Gurvinder Singh</p>
           </Link>
         </div>

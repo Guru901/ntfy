@@ -1,12 +1,17 @@
-import { NextResponse } from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 import Folder from "@/models/folderModel";
 import connectToDb from "@/dbconfig/connectToDb";
+import {getDataFromToken} from "@/lib/getDataFromToken";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     await connectToDb();
     const req = await request.json();
-    const { name, id, location } = req;
+    const { name,  location } = req;
+
+    const data = getDataFromToken(request) as {
+      id: string;
+    }
 
     const existingFolder = await Folder.find({ name });
 
@@ -17,7 +22,7 @@ export async function POST(request: Request) {
     }
 
     const newFolder = await Folder.create({
-      createdBy: id,
+      createdBy:data.id,
       location,
       name,
     });

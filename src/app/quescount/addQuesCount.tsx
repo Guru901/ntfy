@@ -33,7 +33,6 @@ export function AddQuesCount() {
     try {
       await axios.post("/api/quescount", {
         value,
-        user,
       });
       location.reload();
     } catch (error) {

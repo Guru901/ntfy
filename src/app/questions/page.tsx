@@ -40,7 +40,6 @@ export default function Questions() {
     setLoading(true);
     const { data } = await axios.post("/api/createFolder", {
       name,
-      id: user._id,
       location: "/",
     });
     setEnterDetailsTrigger(false);

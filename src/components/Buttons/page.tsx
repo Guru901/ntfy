@@ -118,7 +118,7 @@ export default function LogoutButton() {
   const { setUser } = useUserStore();
 
   async function handleLogout() {
-    const { data } = await axios.post("/api/logout");
+    const { data } = await axios.get("/api/logout");
 
     setUser({
       _id: "",

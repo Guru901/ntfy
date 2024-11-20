@@ -2,24 +2,22 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import connectToDb from "@/dbconfig/connectToDb";
+import {getDataFromToken} from "@/lib/getDataFromToken";
 
-export async function POST(request: NextRequest) {
-  let token = request.cookies.get("token")?.value || "";
+export async function GET(request: NextRequest) {
 
-  if (!token) {
+  const data = getDataFromToken(request) as {
+    id: string
+  }
+
+  if (!data) {
     return NextResponse.json({ success: false });
   }
 
   try {
     await connectToDb();
 
-    const decodedToken = jwt.verify(
-      token,
-      process.env.TOKEN_SECRET as string
-    ) as {
-      id: string;
-    };
-    const userId = decodedToken.id;
+    const userId = data.id;
 
     const user = await User.findById(userId).select("-password");
 

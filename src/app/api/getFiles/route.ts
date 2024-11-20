@@ -5,9 +5,13 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     await connectToDb();
+
     const req = await request.json();
+
     const { pathName } = req;
+
     const folder = await Folder.findById(pathName);
+
     if (!folder) {
       return NextResponse.json({
         message: "Folder not found",

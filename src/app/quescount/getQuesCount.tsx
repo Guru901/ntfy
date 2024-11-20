@@ -24,9 +24,7 @@ export function GetQuesCount() {
     (async () => {
       try {
         setLoading(true);
-        const { data } = await axios.post("/api/getQuesCount", {
-          user: user,
-        });
+        const { data } = await axios.get("/api/getQuesCount");
 
         const subjectA: QuestionsCount[] = [];
         const subjectB: QuestionsCount[] = [];

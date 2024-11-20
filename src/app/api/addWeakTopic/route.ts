@@ -1,8 +1,9 @@
-import { NextResponse } from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 import WeakTopic from "@/models/weakTopicModel";
 import connectToDb from "@/dbconfig/connectToDb";
+import {getDataFromToken} from "@/lib/getDataFromToken";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
 
     await connectToDb();
@@ -10,14 +11,15 @@ export async function POST(request: Request) {
     const req = await request.json();
 
     const { weakTopic, subject } = req.form;
-    const { _id } = req.user;
 
-    console.log(weakTopic, subject, _id);
+    const data = getDataFromToken(request) as {
+      id: string;
+    }
 
     const weakTopicDoc = await WeakTopic.create({
       name: weakTopic,
       subject: subject,
-      createdBy: _id,
+      createdBy: data.id,
     });
 
     await weakTopicDoc.save();

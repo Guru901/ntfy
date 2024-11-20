@@ -47,7 +47,6 @@ export function AddTaskDialog() {
         title: values.title,
         subject: values.subject,
         priority: values.priority,
-        id: user?._id,
       });
       setIsDialogOpen(false);
       location.reload();

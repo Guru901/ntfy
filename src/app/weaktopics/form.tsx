@@ -33,7 +33,6 @@ export default function Form() {
     try {
       await axios.post("/api/addWeakTopic", {
         form: data,
-        user,
       });
 
       location.reload();

@@ -2,20 +2,21 @@ import { TAddTaskSchema } from "@/lib/type";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import { jwtDecode } from "jwt-decode";
+import {Task} from "@/lib/type"
 
 type GetTasksResponse = {
   success: boolean;
   error?: string;
-  tasks?: [];
+  tasks?: Task[];
 };
 
-export async function getTasks(userId: string): Promise<GetTasksResponse> {
+export async function getTasks(): Promise<GetTasksResponse> {
   try {
     const { data } = await axios.get<{
       error?: string;
       tasks?: any;
       success: boolean;
-    }>("/api/getAllTasks?userId=" + userId);
+    }>("/api/getAllTasks");
 
     if (!data.success && data.error) {
       return {

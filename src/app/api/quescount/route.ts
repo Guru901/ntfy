@@ -1,18 +1,22 @@
 import connectToDb from "@/dbconfig/connectToDb";
 import Questions from "@/models/questModel";
-import { NextResponse } from "next/server";
+import {NextRequest, NextResponse} from "next/server";
+import {getDataFromToken} from "@/lib/getDataFromToken";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     await connectToDb();
     const req = await request.json();
     const { subject, questions } = req.value;
-    const { _id } = req.user;
+
+    const data = getDataFromToken(request) as {
+      id: string;
+    }
 
     const newQuestion = {
       subject: subject,
       questions: questions,
-      byUser: _id,
+      byUser: data.id,
     };
     await Questions.create(newQuestion);
 

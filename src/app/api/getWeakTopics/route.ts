@@ -1,16 +1,19 @@
 import WeakTopic from "@/models/weakTopicModel";
-import { NextResponse } from "next/server";
+import {NextRequest, NextResponse} from "next/server";
+import {getDataFromToken} from "@/lib/getDataFromToken";
 
-export async function POST(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const req = await request.json();
-    const { user } = req;
 
-    if (!user) {
+    const data = getDataFromToken(request) as {
+      id: string;
+    }
+
+    if (!data) {
       return NextResponse.json({ success: false, message: "User not found" });
     }
 
-    const weakTopics = await WeakTopic.find({ createdBy: user._id });
+    const weakTopics = await WeakTopic.find({ createdBy: data.id });
     if (!weakTopics) {
       return NextResponse.json({
         success: false,

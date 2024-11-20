@@ -4,7 +4,9 @@ import Image from "next/image";
 
 export default async function Questions({ searchParams }: { searchParams: any }) {
 
-  const folderId = await searchParams.id
+  await searchParams
+
+  const folderId = searchParams.id as string
 
   const { data: questions, error } = await getFiles(folderId)
 
@@ -18,7 +20,7 @@ export default async function Questions({ searchParams }: { searchParams: any })
 
   return (
     <>
-      {questions.map((x: string) => (
+      {Array.isArray(questions) && questions.map((x: string) => (
         <Image
           width={400}
           height={300}

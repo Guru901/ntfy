@@ -24,11 +24,8 @@ export function GetWeakTopics() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.post(
-          "https://ntfy-blush.vercel.app/api/getWeakTopics",
-          {
-            user: user,
-          }
+        const { data } = await axios.get(
+          "/api/getWeakTopics"
         );
 
         const formattedData = data.weakTopics.map((doc: any) => {
