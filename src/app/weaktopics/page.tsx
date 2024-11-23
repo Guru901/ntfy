@@ -1,7 +1,11 @@
 import React from "react";
 import Form from "./form";
 import { GetWeakTopics } from "./getWeakTopics";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Weak Topics",
+}
 export default async function QuesCount() {
   return (
     <div className="flex flex-col p-5 md:p-10 gap-20">

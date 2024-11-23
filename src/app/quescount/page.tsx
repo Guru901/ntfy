@@ -1,6 +1,11 @@
 import React from "react";
 import { GetQuesCount } from "./getQuesCount";
 import { AddQuesCount } from "./addQuesCount";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Questions Count",
+}
 
 export default function QuesCount() {
   return (

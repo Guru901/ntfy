@@ -1,13 +1,15 @@
 import WeakTopic from "@/models/weakTopicModel";
-import {NextRequest, NextResponse} from "next/server";
-import {getDataFromToken} from "@/lib/getDataFromToken";
+import { NextRequest, NextResponse } from "next/server";
+import { getDataFromToken } from "@/lib/getDataFromToken";
+import connectToDb from "@/dbconfig/connectToDb";
 
 export async function GET(request: NextRequest) {
   try {
+    await connectToDb();
 
     const data = getDataFromToken(request) as {
       id: string;
-    }
+    };
 
     if (!data) {
       return NextResponse.json({ success: false, message: "User not found" });

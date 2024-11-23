@@ -1,6 +1,7 @@
 import Questions from "@/models/questModel";
 import { NextResponse } from "next/server";
 import connectToDb from "@/dbconfig/connectToDb";
+import { z } from "zod";
 
 export async function POST(request: Request) {
   try {

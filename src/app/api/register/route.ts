@@ -2,12 +2,23 @@ import connectToDb from "@/dbconfig/connectToDb";
 import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import { z } from "zod";
+
+const bodySchema = z.object({
+  email: z.string(),
+  username: z.string(),
+  password: z.string(),
+});
 
 export async function POST(request: Request) {
   try {
-    connectToDb();
+    await connectToDb();
 
     const req = await request.json();
+
+    if (!bodySchema.safeParse(req).success) {
+      return NextResponse.json({ success: false, error: "Invalid request" });
+    }
 
     const { email, username, password } = req;
     let existingUser = await User.findOne({ email: email });

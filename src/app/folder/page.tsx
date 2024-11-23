@@ -1,5 +1,10 @@
 import { EnterDetails } from "./details";
 import Questions from "./questions";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Folder",
+};
 
 export default function Folder({ searchParams }: { searchParams: any }) {
   return (

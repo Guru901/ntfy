@@ -8,6 +8,11 @@ import {
   HeroButtons,
   NavButtons,
 } from "@/components/Buttons/page";
+import { Metadata} from "next";
+
+export const metadata: Metadata = {
+  title: "NTFY",
+}
 
 export default function Home() {
   return (

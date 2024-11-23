@@ -2,11 +2,22 @@ import {NextRequest, NextResponse} from "next/server";
 import Folder from "@/models/folderModel";
 import connectToDb from "@/dbconfig/connectToDb";
 import {getDataFromToken} from "@/lib/getDataFromToken";
+import { z } from "zod"
+
+const bodySchema = z.object({
+  name: z.string(),
+  location: z.string(),
+});
 
 export async function POST(request: NextRequest) {
   try {
     await connectToDb();
     const req = await request.json();
+
+    if (!bodySchema.safeParse(req).success) {
+      return NextResponse.json({ success: false, error: "Invalid request" });
+    }
+
     const { name,  location } = req;
 
     const data = getDataFromToken(request) as {

@@ -1,8 +1,8 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Task from "@/models/taskModel";
 import connectToDb from "@/dbconfig/connectToDb";
 import { z } from "zod";
-import {getDataFromToken} from "@/lib/getDataFromToken";
+import { getDataFromToken } from "@/lib/getDataFromToken";
 
 const bodySchema = z.object({
   title: z.string(),
@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
     const { title, subject, priority } = req;
 
     const data = getDataFromToken(request) as {
-      id: string
-    }
+      id: string;
+    };
 
     const newTask = await Task.create({
       title: title,
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     await newTask.save();
 
-    const tasks = await Task.find({ byUser: data.id});
+    const tasks = await Task.find({ byUser: data.id });
 
     return NextResponse.json({ success: true, tasks });
   } catch (error) {
