@@ -123,7 +123,16 @@ export default function LogoutButton() {
     setUser({
       _id: "",
       email: "",
-      name: "",
+      topic: "",
+      wantImages: false,
+      wantQuesCount: false,
+      whatToTrack: [
+        {
+          value: "",
+          label: "",
+        },
+      ],
+      username: "",
     });
 
     if (data.success) {

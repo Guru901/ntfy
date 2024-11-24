@@ -24,6 +24,7 @@ export default function useGetUser() {
             wantQuesCount: data.user.wantQuesCount,
             whatToTrack: data.user.whatToTrack,
             email: data.user.email,
+            topic: data.user.topic,
           });
         } catch (error) {
           setError("error in getLoggedInUser");
