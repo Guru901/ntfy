@@ -29,9 +29,7 @@ export default function RootLayout({
         >
           <SidebarProvider defaultOpen={false}>
             <EdgeStoreProvider>
-              <SidebarWrapper>
-                <main className="w-screen">{children}</main>
-              </SidebarWrapper>
+              <SidebarWrapper>{children}</SidebarWrapper>
             </EdgeStoreProvider>
           </SidebarProvider>
         </ThemeProvider>

@@ -14,7 +14,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "next/navigation";
 import ReadMe from "@/components/readMe";
 import useGetUser from "@/hooks/use-get-user";
-import { Metadata } from "next";
 import { EnterDetails } from "./details";
 
 export default function Questions() {
@@ -65,6 +64,17 @@ export default function Questions() {
       router.push(`/folder?id=${doubleClickedFolder}`);
     }
   }, [doubleClickedFolder, router]);
+
+  if (user.wantImages === false) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-2 w-screen h-screen">
+        <h1 className="text-2xl">You are not allowed to see this</h1>
+        <p className="text-xl">
+          Go in the settings and allow images to see this page
+        </p>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

@@ -67,6 +67,17 @@ export function GetQuesCount() {
     })();
   }, []);
 
+  if (user.wantImages === false) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-2 w-screen h-screen">
+        <h1 className="text-2xl">You are not allowed to see this</h1>
+        <p className="text-xl">
+          Go in the settings and allow imaegs to see this page
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-2 md:flex-row">
       {loading ? (
