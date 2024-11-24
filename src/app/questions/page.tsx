@@ -1,13 +1,10 @@
 import Questions from "./questions";
 import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Questions",
+};
+
 export default function QuestionsPage() {
-
-  export const metadata: Metadata = {
-    title: "Questions",
-  }
-
-  return (
-      <Questions />
-  )
+  return <Questions />;
 }

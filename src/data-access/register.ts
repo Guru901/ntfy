@@ -1,14 +1,10 @@
-import { SignupSchema, TSignUpSchema } from "@/lib/type";
+import { SignupSchema, TSignUpSchema, User as TUser } from "@/lib/type";
 import axios from "axios";
 
 type RegisterUserResponse = {
   success: boolean;
   error?: string;
-  user?: {
-    _id: string;
-    name: string;
-    email: string;
-  };
+  user?: TUser;
 };
 
 export default async function RegisterUser(

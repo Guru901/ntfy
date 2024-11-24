@@ -12,8 +12,17 @@ export const useUserStore = create<UserState>()(
     (set) => ({
       user: {
         _id: "",
-        name: "",
+        username: "",
+        wantImages: false,
+        wantQuesCount: false,
+        whatToTrack: [
+          {
+            value: "",
+            label: "",
+          },
+        ],
         email: "",
+        topic: "",
       },
       setUser: (user) => set({ user }),
     }),

@@ -12,7 +12,7 @@ export default function SidebarWrapper({
   const pathname = usePathname();
 
   // Ensure `pathname` is defined and not at the root "/"
-  const showNavbar = pathname && pathname !== "/";
+  const showNavbar = pathname && pathname !== "/" && pathname !== "/customize";
 
   return (
     <>

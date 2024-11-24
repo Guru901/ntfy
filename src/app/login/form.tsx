@@ -35,8 +35,12 @@ export default function LoginForm() {
 
       setUser({
         _id: user._id,
-        name: user?.name,
+        username: user.username,
         email: user.email,
+        wantImages: user.wantImages,
+        wantQuesCount: user.wantQuesCount,
+        whatToTrack: user.whatToTrack,
+        topic: user.topic,
       });
       location.reload();
     }

@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { priorityList, subjectList } from "@/lib/contants";
+import { priorityList } from "@/lib/contants";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -137,7 +137,7 @@ export function AddTaskDialog() {
                       <SelectValue placeholder="Subject" />
                     </SelectTrigger>
                     <SelectContent>
-                      {subjectList.map((subject) => (
+                      {user.whatToTrack.map((subject) => (
                         <SelectItem key={subject.value} value={subject.value}>
                           {subject.label}
                         </SelectItem>

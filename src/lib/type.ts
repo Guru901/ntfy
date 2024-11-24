@@ -17,9 +17,18 @@ export type Task = {
 };
 
 export type User = {
-  name: string;
+  username: string;
   email: string;
   _id: string;
+  wantImages: boolean;
+  wantQuesCount: boolean;
+  whatToTrack: [
+    {
+      value: string;
+      label: string;
+    }
+  ];
+  topic: string;
 };
 
 export type QuestionsCount = {

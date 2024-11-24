@@ -11,9 +11,12 @@ import RegisterUser from "@/data-access/register";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function RegisterForm() {
   const { setUser } = useUserStore();
+
+  const [error, setError] = useState("");
 
   const { push } = useRouter();
 
@@ -21,7 +24,6 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setError,
   } = useForm<TSignUpSchema>({
     resolver: zodResolver(SignupSchema),
   });
@@ -30,18 +32,23 @@ export default function RegisterForm() {
     const { success, error, user } = await RegisterUser(data);
 
     if (error) {
-      setError("root", { message: error });
+      setError(error);
+      return;
     }
 
     if (success && user) {
       setUser({
         _id: user._id,
-        name: user?.name,
+        username: user?.username,
         email: user.email,
+        whatToTrack: user.whatToTrack,
+        wantImages: user.wantImages,
+        wantQuesCount: user.wantQuesCount,
+        topic: user.topic,
       });
-    }
 
-    location.reload();
+      push("/customize");
+    }
   };
 
   return (
@@ -88,9 +95,7 @@ export default function RegisterForm() {
           <p className="text-sm text-red-500">{errors.password.message}</p>
         )}
 
-        {errors.root && (
-          <p className="text-sm text-red-500">{errors.root.message}</p>
-        )}
+        {error && <p className="text-sm text-red-500">{error}</p>}
         {!isSubmitting ? (
           <Button type="submit" className="w-full">
             Create an account

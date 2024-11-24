@@ -17,7 +17,14 @@ export default function useGetUser() {
             setError("User not logged in");
             return;
           }
-          setUser(data.user);
+          setUser({
+            _id: data.user._id,
+            username: data.user.username,
+            wantImages: data.user.wantImages,
+            wantQuesCount: data.user.wantQuesCount,
+            whatToTrack: data.user.whatToTrack,
+            email: data.user.email,
+          });
         } catch (error) {
           setError("error in getLoggedInUser");
         }

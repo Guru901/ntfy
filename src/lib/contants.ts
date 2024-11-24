@@ -27,26 +27,3 @@ export const statusList = [
     label: "On Hold",
   },
 ];
-
-export const subjectList = [
-  {
-    value: "Maths",
-    label: "Maths",
-  },
-  {
-    value: "Physics",
-    label: "Physics",
-  },
-  {
-    value: "Chemistry",
-    label: "Chemistry",
-  },
-  {
-    value: "Code",
-    label: "Code",
-  },
-  {
-    value: "General",
-    label: "General",
-  },
-];

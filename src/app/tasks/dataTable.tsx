@@ -31,7 +31,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { statusList, subjectList } from "@/lib/contants";
+import { statusList } from "@/lib/contants";
+import { useUserStore } from "@/store/userStore";
 
 interface DataTableProps<Task, TValue> {
   columns: ColumnDef<Task, TValue>[];
@@ -46,6 +47,8 @@ export default function DataTable<Task, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const { user } = useUserStore();
 
   const table = useReactTable({
     data,
@@ -89,7 +92,7 @@ export default function DataTable<Task, TValue>({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All</SelectItem>
-            {subjectList.map((subject) => (
+            {user.whatToTrack.map((subject) => (
               <SelectItem key={subject.value} value={subject.value}>
                 {subject.label}
               </SelectItem>

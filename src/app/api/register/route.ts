@@ -41,6 +41,7 @@ export async function POST(request: Request) {
       username: username,
       password: password,
       email: email,
+      topic: "temp",
     });
 
     await newUser.save();

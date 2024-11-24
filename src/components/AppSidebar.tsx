@@ -16,33 +16,31 @@ import { Separator } from "@/components/ui/separator";
 import LogoutButton from "./Buttons/page";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
-const items = [
-  {
-    title: "Home",
-    url: "/",
-  },
-  {
-    title: "Tasks",
-    url: "/tasks",
-  },
-  {
-    title: "Questions",
-    url: "/questions",
-  },
-  {
-    title: "Ques Count",
-    url: "/quescount",
-  },
-  {
-    title: "Weak Topics",
-    url: "/weaktopics",
-  },
-];
+import { useUserStore } from "@/store/userStore";
 
 export function AppSidebar() {
   const pathName = usePathname();
   const [active, setActive] = useState("Home");
+
+  const { user } = useUserStore();
+
+  const items = [
+    {
+      title: "Home",
+      url: "/",
+    },
+    {
+      title: "Tasks",
+      url: "/tasks",
+    },
+    {
+      title: "Weak Topics",
+      url: "/weaktopics",
+    },
+  ];
+
+  user.wantImages && items.push({ title: "Questions", url: "/questions" });
+  user.wantQuesCount && items.push({ title: "Ques Count", url: "/quescount" });
 
   useEffect(() => {
     items.map((item) => {
