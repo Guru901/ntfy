@@ -34,6 +34,7 @@ export function AddQuesCount() {
       await axios.post("/api/quescount", {
         value,
       });
+
       location.reload();
     } catch (error) {
       console.log(error);
@@ -66,9 +67,11 @@ export function AddQuesCount() {
                 <SelectValue placeholder="Subject" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Maths">Maths</SelectItem>
-                <SelectItem value="Physics">Physics</SelectItem>
-                <SelectItem value="Chemistry">Chemistry</SelectItem>
+                {user.whatToTrack.map((x) => (
+                  <SelectItem key={x.label} value={x.label}>
+                    {x.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           )}

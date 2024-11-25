@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
 
     const req = await request.json();
 
-    if (!bodySchema.safeParse(req).success) {
+    if (!bodySchema.safeParse(req.value).success) {
       return NextResponse.json({ success: false, error: "Invalid request" });
     }
 

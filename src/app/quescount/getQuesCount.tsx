@@ -1,24 +1,17 @@
 "use client";
 
 import useGetUser from "@/hooks/use-get-user";
-import { QuestionsCount } from "@/lib/type";
 import axios from "axios";
 import { DataTable } from "./data-table";
 import { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { Loader2 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function GetQuesCount() {
   const { user } = useGetUser();
-
-  const [mathQuestions, setMathQuestions] = useState<QuestionsCount[]>([]);
-  const [physicsQuestions, setPhysicsQuestions] = useState<QuestionsCount[]>(
-    []
-  );
-  const [chemistryQuestions, setChemistryQuestions] = useState<
-    QuestionsCount[]
-  >([]);
   const [loading, setLoading] = useState(true);
+  const [sortedData, setSortedData] = useState<{ [key: string]: any[] }>({});
 
   useEffect(() => {
     (async () => {
@@ -26,10 +19,7 @@ export function GetQuesCount() {
         setLoading(true);
         const { data } = await axios.get("/api/getQuesCount");
 
-        const subjectA: QuestionsCount[] = [];
-        const subjectB: QuestionsCount[] = [];
-        const subjectC: QuestionsCount[] = [];
-
+        // Format the date for all data
         const formattedData = data.data.map((doc: any) => {
           const date = new Date(doc.createdAt);
           const options: Intl.DateTimeFormatOptions = {
@@ -38,59 +28,82 @@ export function GetQuesCount() {
           };
           const formattedDate = date
             .toLocaleDateString("en-GB", options)
-            .replace(" ", " "); // Ensure there's a space
+            .replace(" ", " ");
           return {
             ...doc,
             createdAt: formattedDate,
           };
         });
 
-        formattedData.forEach((doc: any) => {
-          if (doc.subject === "Maths") {
-            subjectA.push(doc);
-          } else if (doc.subject === "Physics") {
-            subjectB.push(doc);
-          } else if (doc.subject === "Chemistry") {
-            subjectC.push(doc);
+        // Sort data based on user's tracked subjects
+        const categorizedData: { [key: string]: any[] } = {};
+
+        // Initialize arrays for each subject
+        user.whatToTrack.forEach((subject) => {
+          categorizedData[subject.label] = [];
+        });
+
+        // Categorize the data
+        formattedData.forEach((item: { subject: string }) => {
+          const subject = user.whatToTrack.find(
+            (track) => track.label.toLowerCase() === item.subject.toLowerCase()
+          );
+          if (subject) {
+            categorizedData[subject.label].push(item);
           }
         });
 
-        setMathQuestions(subjectA.reverse());
-        setPhysicsQuestions(subjectB.reverse());
-        setChemistryQuestions(subjectC.reverse());
-
+        setSortedData(categorizedData);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching questions:", error);
         setLoading(false);
       }
     })();
-  }, []);
+  }, [user.whatToTrack]);
 
-  if (user.wantImages === false) {
+  if (user.wantQuesCount === false) {
     return (
       <div className="flex flex-col items-center justify-center gap-2 w-screen h-screen">
         <h1 className="text-2xl">You are not allowed to see this</h1>
         <p className="text-xl">
-          Go in the settings and allow imaegs to see this page
+          Go in the settings and allow images to see this page
         </p>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-2 md:flex-row">
+    <div className="flex flex-col gap-4 md:flex-row flex-wrap">
       {loading ? (
         <div className="w-full flex items-center justify-center">
           <Loader2 className="animate-spin h-5 w-5 text-gray-500" />
         </div>
       ) : (
         <>
-          <DataTable columns={columns} data={mathQuestions} />
-          <DataTable columns={columns} data={physicsQuestions} />
-          <DataTable columns={columns} data={chemistryQuestions} />
+          {user.whatToTrack.map((subject) => (
+            <Card key={subject.label} className="flex-1 md:w-[410px]">
+              <CardHeader>
+                <CardTitle>{subject.label}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex justify-center p-2">
+                {sortedData[subject.label]?.length > 0 ? (
+                  <DataTable
+                    columns={columns}
+                    data={sortedData[subject.label]}
+                  />
+                ) : (
+                  <p className="text-gray-500 text-center py-4">
+                    No questions found for {subject.label}
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          ))}
         </>
       )}
     </div>
   );
 }
+
+export default GetQuesCount;

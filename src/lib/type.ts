@@ -75,7 +75,7 @@ export type TAddTaskSchema = z.infer<typeof AddTaskSchema>;
 
 export const WeakTopicsFormSchema = z.object({
   weakTopic: z.string().min(3, "Weak Topic Should be atleast 3 chars"),
-  subject: z.enum(["Maths", "Physics", "Chemistry"]),
+  subject: z.string().min(1),
 });
 
 export type TWeakTopicFormValues = z.infer<typeof WeakTopicsFormSchema>;

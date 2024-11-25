@@ -34,7 +34,6 @@ export default function Form() {
       await axios.post("/api/addWeakTopic", {
         form: data,
       });
-
       location.reload();
     } catch (error) {
       console.error(error);
@@ -71,9 +70,11 @@ export default function Form() {
                 <SelectValue placeholder="Subject" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Maths">Maths</SelectItem>
-                <SelectItem value="Physics">Physics</SelectItem>
-                <SelectItem value="Chemistry">Chemistry</SelectItem>
+                {user.whatToTrack.map((x) => (
+                  <SelectItem value={x.value} key={x.label}>
+                    {x.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           )}
