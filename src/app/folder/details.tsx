@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,10 +18,10 @@ export function EnterDetails() {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
-  const [fileUploading, setFileUploading] = useState(false)
+  const [fileUploading, setFileUploading] = useState(false);
   const [preview, setPreview] = useState<string>("");
   const { edgestore } = useEdgeStore(); // Assuming this is a custom hook
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -75,6 +75,7 @@ export function EnterDetails() {
                   alt="Question Preview"
                   width={400}
                   height={300}
+                  priority={true}
                 />
               )}
               <Input
@@ -102,11 +103,10 @@ export function EnterDetails() {
           </CardContent>
         </Card>
       </div>
-    )
+    );
   }
 
   return (
-
     <div className="w-full h-12 flex justify-between items-center">
       <Link href="/questions">
         <Button variant="outline" size="icon">
@@ -117,8 +117,5 @@ export function EnterDetails() {
         <Button onClick={() => setUploading(true)}>Upload</Button>
       </div>
     </div>
-
   );
 }
-
-

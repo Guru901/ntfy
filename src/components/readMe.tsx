@@ -21,6 +21,7 @@ export default function ReadMe({ setShowReadMe }: any) {
           src={"/images/readme.png"}
           width={1000}
           height={1000}
+          priority={true}
         />
       </div>
     </div>

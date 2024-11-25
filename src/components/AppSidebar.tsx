@@ -65,7 +65,7 @@ export function AppSidebar() {
                     className="bg-zinc-800 rounded-lg"
                   >
                     <SidebarMenuButton asChild>
-                      <Link href={item.url}>
+                      <Link prefetch={true} href={item.url}>
                         <span className="font-medium text-md">
                           {item.title}
                         </span>
@@ -75,7 +75,7 @@ export function AppSidebar() {
                 ) : (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <Link href={item.url}>
+                      <Link href={item.url} prefetch={true}>
                         <span className="font-medium text-md">
                           {item.title}
                         </span>

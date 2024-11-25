@@ -12,7 +12,6 @@ import {
 import { Loader2 } from "lucide-react";
 import axios from "axios";
 import useGetUser from "@/hooks/use-get-user";
-import { z } from "zod";
 import { useForm, Controller } from "react-hook-form"; // Import Controller
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TWeakTopicFormValues, WeakTopicsFormSchema } from "@/lib/type";

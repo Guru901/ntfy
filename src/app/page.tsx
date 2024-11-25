@@ -8,11 +8,11 @@ import {
   HeroButtons,
   NavButtons,
 } from "@/components/Buttons/page";
-import { Metadata} from "next";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "NTFY",
-}
+};
 
 export default function Home() {
   return (
@@ -43,6 +43,7 @@ export default function Home() {
           src="/demo.png"
           alt="ntfy logo"
           width={1200}
+          priority={true}
           height={1000}
           className="w-screen md:w-auto"
         />
