@@ -12,13 +12,19 @@ import { Input } from "@/components/ui/input";
 import useGetUser from "@/hooks/use-get-user";
 import axios from "axios";
 import { PencilIcon, SaveIcon, TrashIcon } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import Loader from "../loading";
+import { useState } from "react";
 import { useUserStore } from "@/store/userStore";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Me() {
-  const [loading, setLoading] = useState(false);
   const { user } = useGetUser();
   const { setUser } = useUserStore();
 
@@ -26,6 +32,11 @@ export default function Me() {
   const [editTableFields, setEditableFields] = useState([
     { label: "", value: "" },
   ]);
+
+  const [isEditingImages, setIsEditingImages] = useState(false);
+  const [isEditingQuesCount, setIsEditingQuesCount] = useState(false);
+  const [wantImages, setWantImages] = useState(user.wantImages);
+  const [wantQuesCount, setWantQuesCount] = useState(user.wantQuesCount);
 
   const handleSave = async () => {
     try {
@@ -49,6 +60,41 @@ export default function Me() {
     } catch (error) {}
   };
 
+  const handleUpdateImages = async (value: string) => {
+    try {
+      setIsEditingImages(false);
+      const { data } = await axios.post("/api/updateUserImages", {
+        wantImages: value === "Yes",
+      });
+
+      if (data.success) {
+        setUser({
+          ...user,
+          wantImages: value === "Yes",
+        });
+        setWantImages(value === "Yes");
+      }
+      setIsEditingImages(false);
+    } catch (error) {}
+  };
+
+  const handleUpdateQuesCount = async (value: string) => {
+    try {
+      const { data } = await axios.post("/api/updateUserQuesCount", {
+        wantQuesCount: value === "Yes",
+      });
+
+      if (data.success) {
+        setUser({
+          ...user,
+          wantQuesCount: value === "Yes",
+        });
+        setWantQuesCount(value === "Yes");
+      }
+      setIsEditingQuesCount(false);
+    } catch (error) {}
+  };
+
   const handleUpdateField = (index: number, field: string, value: string) => {
     const updatedFields = [...editTableFields];
     updatedFields[index] = {
@@ -63,14 +109,11 @@ export default function Me() {
     setEditableFields([...editTableFields, { label: "", value: "" }]);
   };
 
-  // Function to remove a slot
   const handleRemoveSlot = (indexToRemove: number) => {
     setEditableFields(
       editTableFields.filter((_, index) => index !== indexToRemove)
     );
   };
-
-  if (loading) return <Loader />;
 
   return (
     <main>
@@ -95,20 +138,78 @@ export default function Me() {
 
             <div className="border-b pb-4">
               <div className="flex items-center justify-between">
-                <p className="text-md text-zinc-300">Want Images</p>
-                <p className="text-md text-zinc-300">
-                  {user.wantImages ? "Yes" : "No"}
-                </p>
+                <div className="flex flex-col gap-2">
+                  <p className="text-md text-zinc-300">Want Images</p>
+                  {isEditingImages ? (
+                    <div>
+                      <Select
+                        onValueChange={handleUpdateImages}
+                        defaultValue={wantImages ? "Yes" : "No"}
+                      >
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Yes">Yes</SelectItem>
+                          <SelectItem value="No">No</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  ) : (
+                    <p className="text-md text-zinc-300">
+                      {wantImages ? "Yes" : "No"}
+                    </p>
+                  )}
+                </div>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  onClick={() => {
+                    setIsEditingImages(true);
+                  }}
+                >
+                  <PencilIcon size={15} />
+                </Button>
               </div>
             </div>
             <div className="border-b pb-4">
               <div className="flex items-center justify-between">
-                <p className="text-md text-zinc-300">
-                  Want to count no of ques
-                </p>
-                <p className="text-md text-zinc-300">
-                  {user.wantQuesCount ? "Yes" : "No"}
-                </p>
+                <div className="flex flex-col gap-2">
+                  <p className="text-md text-zinc-300">
+                    Want to count no of ques
+                  </p>
+                  {isEditingQuesCount ? (
+                    <div>
+                      <Select
+                        onValueChange={handleUpdateQuesCount}
+                        defaultValue={wantQuesCount ? "Yes" : "No"}
+                      >
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value="Yes">Yes</SelectItem>
+                            <SelectItem value="No">No</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  ) : (
+                    <p className="text-md text-zinc-300">
+                      {wantQuesCount ? "Yes" : "No"}
+                    </p>
+                  )}
+                </div>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  onClick={() => {
+                    setIsEditingQuesCount(true);
+                  }}
+                >
+                  <PencilIcon size={15} />
+                </Button>
               </div>
             </div>
             <div className="border-b pb-4">
