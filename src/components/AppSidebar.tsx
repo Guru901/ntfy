@@ -41,6 +41,7 @@ export function AppSidebar() {
 
   user.wantImages && items.push({ title: "Questions", url: "/questions" });
   user.wantQuesCount && items.push({ title: "Ques Count", url: "/quescount" });
+  items.push({ title: "Profile", url: "/me" });
 
   useEffect(() => {
     items.map((item) => {
