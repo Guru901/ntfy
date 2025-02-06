@@ -38,7 +38,7 @@ export function Tasks() {
 
   return (
     <Suspense fallback={<Loader2 />}>
-      {tasks && <DataTable data={tasks} columns={columns} />}
+      {tasks && <DataTable data={tasks.reverse()} columns={columns} />}
     </Suspense>
   );
 }
