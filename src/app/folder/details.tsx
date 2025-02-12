@@ -20,7 +20,7 @@ export function EnterDetails() {
   const [uploading, setUploading] = useState(false);
   const [fileUploading, setFileUploading] = useState(false);
   const [preview, setPreview] = useState<string>("");
-  const { edgestore } = useEdgeStore(); // Assuming this is a custom hook
+  const { edgestore } = useEdgeStore();
   const searchParams = useSearchParams();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

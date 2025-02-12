@@ -27,7 +27,7 @@ export function GetWeakTopics() {
           };
           const formattedDate = date
             .toLocaleDateString("en-GB", options)
-            .replace(" ", " "); // Ensure there's a space
+            .replace(" ", " ");
           return {
             ...doc,
             createdAt: formattedDate,
@@ -36,12 +36,10 @@ export function GetWeakTopics() {
 
         const categorizedData: { [key: string]: any[] } = {};
 
-        // Initialize arrays for each subject
         user.whatToTrack.forEach((subject) => {
           categorizedData[subject.label] = [];
         });
 
-        // Categorize the data
         formattedData.forEach((item: { subject: string }) => {
           const subject = user.whatToTrack.find(
             (track) => track.label.toLowerCase() === item.subject.toLowerCase()

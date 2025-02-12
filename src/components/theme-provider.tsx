@@ -11,7 +11,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null; // Avoids rendering on the server
+  if (!mounted) return null;
 
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }

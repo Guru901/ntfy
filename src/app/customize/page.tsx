@@ -14,7 +14,7 @@ import { Toggle } from "@/components/ui/toggle";
 import { useUserStore } from "@/store/userStore";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
 export default function Customize() {
   const [fields, setFields] = useState([{ id: 0, value: "" }]);
@@ -73,7 +73,6 @@ export default function Customize() {
       </h1>
 
       <div className="flex flex-col gap-8">
-        {/* Topic Section */}
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">
             1. What are you using it for? (e.g., JEE)
@@ -93,7 +92,6 @@ export default function Customize() {
           </div>
         </section>
 
-        {/* Fields Section */}
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">
             2. What fields do you want to track? (e.g., Maths, Physics)
@@ -141,7 +139,6 @@ export default function Customize() {
           </div>
         </section>
 
-        {/* Images Section */}
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">
             3. Do you want to save images?
@@ -179,7 +176,6 @@ export default function Customize() {
           </div>
         </section>
 
-        {/* Questions Tracking Section */}
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">
             4. Do you want to count questions solved per day?

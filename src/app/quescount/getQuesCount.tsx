@@ -19,7 +19,6 @@ export function GetQuesCount() {
         setLoading(true);
         const { data } = await axios.get("/api/getQuesCount");
 
-        // Format the date for all data
         const formattedData = data.data.map((doc: any) => {
           const date = new Date(doc.createdAt);
           const options: Intl.DateTimeFormatOptions = {
@@ -35,15 +34,12 @@ export function GetQuesCount() {
           };
         });
 
-        // Sort data based on user's tracked subjects
         const categorizedData: { [key: string]: any[] } = {};
 
-        // Initialize arrays for each subject
         user.whatToTrack.forEach((subject) => {
           categorizedData[subject.label] = [];
         });
 
-        // Categorize the data
         formattedData.forEach((item: { subject: string }) => {
           const subject = user.whatToTrack.find(
             (track) => track.label.toLowerCase() === item.subject.toLowerCase()

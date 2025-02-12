@@ -41,10 +41,9 @@ export default function TaskEditForm() {
     handleSubmit,
     control,
     formState: { isSubmitting, errors },
-    reset, // Make sure to destructure reset
+    reset,
   } = useForm<TEditFormTaskSchema>({
     resolver: zodResolver(EditFormTaskSchema),
-    // Do not set default values here. We will reset it after fetching task
   });
 
   async function submitEditedTask(values: TEditFormTaskSchema) {
@@ -77,7 +76,6 @@ export default function TaskEditForm() {
           subject: task.subject,
         });
 
-        // Once task data is fetched, reset form default values
         reset({
           priority: task.priority,
           status: task.status,
@@ -91,7 +89,7 @@ export default function TaskEditForm() {
         setLoading(false);
       }
     })();
-  }, [pathName, reset]); // Reset should only trigger when pathName or reset changes
+  }, [pathName, reset]);
 
   if (loading) return <div>loading...</div>;
 
