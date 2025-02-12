@@ -2,7 +2,7 @@ import { TAddTaskSchema } from "@/lib/type";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import { jwtDecode } from "jwt-decode";
-import {Task} from "@/lib/type"
+import { Task } from "@/lib/type";
 
 type GetTasksResponse = {
   success: boolean;

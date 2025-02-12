@@ -1,18 +1,18 @@
 import connectToDb from "@/dbconfig/connectToDb";
 import Task from "@/models/taskModel";
 import { NextRequest, NextResponse } from "next/server";
-import {getDataFromToken} from "@/lib/getDataFromToken";
+import { getDataFromToken } from "@/lib/getDataFromToken";
 
 export async function GET(request: NextRequest) {
   try {
     await connectToDb();
 
     const data = getDataFromToken(request) as {
-      id: string
-    }
+      id: string;
+    };
 
     if (!data) {
-      return NextResponse.redirect(new URL('/login', request.nextUrl))
+      return NextResponse.redirect(new URL("/login", request.nextUrl));
     }
 
     const tasks = await Task.find({ byUser: data.id });

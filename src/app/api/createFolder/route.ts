@@ -1,8 +1,8 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Folder from "@/models/folderModel";
 import connectToDb from "@/dbconfig/connectToDb";
-import {getDataFromToken} from "@/lib/getDataFromToken";
-import { z } from "zod"
+import { getDataFromToken } from "@/lib/getDataFromToken";
+import { z } from "zod";
 
 const bodySchema = z.object({
   name: z.string(),
@@ -18,11 +18,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: "Invalid request" });
     }
 
-    const { name,  location } = req;
+    const { name, location } = req;
 
     const data = getDataFromToken(request) as {
       id: string;
-    }
+    };
 
     const existingFolder = await Folder.find({ name });
 
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     }
 
     const newFolder = await Folder.create({
-      createdBy:data.id,
+      createdBy: data.id,
       location,
       name,
     });

@@ -1,7 +1,7 @@
 import Questions from "@/models/questModel";
 import { NextResponse } from "next/server";
 import connectToDb from "@/dbconfig/connectToDb";
-import {z} from "zod"
+import { z } from "zod";
 
 const bodySchema = z.object({
   _id: z.string(),

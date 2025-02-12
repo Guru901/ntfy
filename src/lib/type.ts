@@ -26,7 +26,7 @@ export type User = {
     {
       value: string;
       label: string;
-    }
+    },
   ];
   topic: string;
 };
