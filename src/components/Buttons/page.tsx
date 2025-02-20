@@ -9,42 +9,30 @@ import useGetUser from "@/hooks/use-get-user";
 export function HeroButtons() {
   const { error, user } = useGetUser();
 
-  if (error.length !== 0) {
-    if (error !== "User not logged in") return <div>Error: {error}</div>;
-  }
-
-  return (
-    <>
-      {user._id.length === 0 ? (
-        <div className="flex gap-2 items-center z-20 mt-6">
-          <Link href={"/login"}>
-            <Button className="min-w-44 text-md">Login</Button>
-          </Link>
-          <Link href={"/signup"}>
-            <Button variant={"outline"} className="text-white min-w-44 text-md">
-              Register
-            </Button>
-          </Link>
-        </div>
-      ) : (
-        <div className="flex gap-2 items-center z-20 mt-6">
-          <Link href={"/tasks"}>
-            <Button>Go to Dashboard</Button>
-          </Link>
-        </div>
-      )}
-    </>
+  return user._id.length === 0 && !error ? (
+    <div className="flex gap-2 items-center z-20 mt-6">
+      <Link href={"/login"}>
+        <Button className="min-w-44 text-md">Login</Button>
+      </Link>
+      <Link href={"/signup"}>
+        <Button variant={"outline"} className="text-white min-w-44 text-md">
+          Register
+        </Button>
+      </Link>
+    </div>
+  ) : (
+    <div className="flex gap-2 items-center z-20 mt-6">
+      <Link href={"/tasks"}>
+        <Button>Go to Dashboard</Button>
+      </Link>
+    </div>
   );
 }
 
 export function NavButtons() {
-  const { error, user } = useGetUser();
+  const { user, error } = useGetUser();
 
-  if (error.length !== 0) {
-    if (error !== "User not logged in") return <div>Error: {error}</div>;
-  }
-
-  return user._id.length > 0 ? (
+  return user._id.length > 0 && !error ? (
     <div>
       <Link href={"/tasks"}>
         <Button>Go To Dashboard</Button>
@@ -86,13 +74,9 @@ export function FooterButtons() {
 
   const { error, user } = useGetUser();
 
-  if (error.length !== 0) {
-    if (error !== "User not logged in") return <div>Error: {error}</div>;
-  }
-
   return (
     <div className="flex gap-3 underline absolute right-10 bottom-8">
-      {user._id.length > 0 ? (
+      {user._id.length > 0 && !error ? (
         links.map((x) => (
           <Link key={x.label} href={x.href} className="opacity-50">
             {x.label}
